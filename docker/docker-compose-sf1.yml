@@ -1,0 +1,52 @@
+version: "3.7"
+
+services:
+  postgres-1:
+    image: postgres-setup
+    container_name: pg-1
+    environment:
+      POSTGRES_DB: impro_database
+      POSTGRES_USER: impro_user
+      POSTGRES_PASSWORD: impro_password
+    restart: always
+    healthcheck:
+      test: pg_isready -U impro_user -d impro_database
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    volumes:
+      - test-data:/var/lib/postgresql/tpch:rw
+      - ./pg_create_tpch_sf1.sql:/docker-entrypoint-initdb.d/pg_create_tpch_sf1.sql:rw
+    ports:
+      - 8080:5432
+    networks:
+      - impro_network
+
+  postgres-2:
+    container_name: pg-2
+    image: postgres-setup
+    environment:
+      POSTGRES_DB: impro_database
+      POSTGRES_USER: impro_user
+      POSTGRES_PASSWORD: impro_password
+    restart: always
+    healthcheck:
+      test: pg_isready -U impro_user -d impro_database
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    volumes:
+      - test-data:/var/lib/postgresql/tpch:rw
+      - ./pg_create_tpch_sf1.sql:/docker-entrypoint-initdb.d/pg_create_tpch_sf1.sql:rw
+    ports:
+      - 8081:5432
+    networks:
+      - impro_network
+
+volumes:
+  test-data:
+    external: true
+
+networks:
+  impro_network:
+    driver: bridge
