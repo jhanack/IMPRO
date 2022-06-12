@@ -43,6 +43,24 @@ services:
     networks:
       - impro_network
 
+  maria-db-1:
+    container_name: mdb-1
+    #image: mariadb:10.6
+    image: mariadb-setup
+    restart: always
+    environment:
+      MARIADB_DATABASE: impro_database
+      MARIADB_USER: impro_user
+      MARIADB_PASSWORD: impro_password
+      MARIADB_ROOT_PASSWORD: secret
+    volumes:
+      - test-data:/docker-entrypoint-initdb.d/tpch:rw
+      - ./mdb_create_tpch_sf1.sql:/docker-entrypoint-initdb.d/mdb_create_tpch_sf1.sql:rw
+    ports:
+      - 8083:3306
+    networks:
+      - impro_network
+
 volumes:
   test-data:
     external: true
