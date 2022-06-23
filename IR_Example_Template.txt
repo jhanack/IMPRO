@@ -14,6 +14,7 @@
 		"children" : [{
 				"nodeName" : "NODE NAME 2.1",
 				"name" : "Filter",
+				"Type : "e.g. Sequential, Hash",
 				"on Table" : "e.g. o.o_orderkey",
 				"Condition" : "<150 and not null",
 				"link" : {
