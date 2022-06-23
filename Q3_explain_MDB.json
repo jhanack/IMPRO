@@ -1,0 +1,51 @@
+{
+  "query_block": {
+    "select_id": 1,
+    "filesort": {
+      "sort_key": "sum(l.l_extendedprice * (1 - l.l_discount)) desc, o.o_orderdate",
+      "temporary_table": {
+        "table": {
+          "table_name": "c",
+          "access_type": "ALL",
+          "rows": 147614,
+          "filtered": 100,
+          "attached_condition": "c.c_mktsegment = 'BUILDING' and c.c_custkey is not null"
+        },
+        "block-nl-join": {
+          "table": {
+            "table_name": "o",
+            "access_type": "hash_ALL",
+            "key": "#hash#$hj",
+            "key_length": "5",
+            "used_key_parts": ["o_custkey"],
+            "ref": ["impro_database.c.c_custkey"],
+            "rows": 1481253,
+            "filtered": 100,
+            "attached_condition": "o.o_orderdate < DATE'1995-03-15'"
+          },
+          "buffer_type": "flat",
+          "buffer_size": "256Kb",
+          "join_type": "BNLH",
+          "attached_condition": "o.o_custkey = c.c_custkey and o.o_orderkey is not null"
+        },
+        "block-nl-join": {
+          "table": {
+            "table_name": "l",
+            "access_type": "hash_ALL",
+            "key": "#hash#$hj",
+            "key_length": "9",
+            "used_key_parts": ["l_orderkey"],
+            "ref": ["impro_database.o.o_orderkey"],
+            "rows": 5784708,
+            "filtered": 100,
+            "attached_condition": "l.l_shipdate > DATE'1995-03-15'"
+          },
+          "buffer_type": "incremental",
+          "buffer_size": "256Kb",
+          "join_type": "BNLH",
+          "attached_condition": "l.l_orderkey = o.o_orderkey"
+        }
+      }
+    }
+  }
+}
