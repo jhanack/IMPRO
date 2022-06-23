@@ -1,0 +1,5 @@
+Name = Filter, Join, Sort, Limit, Aggregate
+
+
+if "Type" = any kind of join
+    "Join Type" = e.g. Hash Join, Block-Nested-Loop-Hash-Join etc.
