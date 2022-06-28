@@ -48,7 +48,6 @@
 			}, {
 				"nodeName" : "NODE NAME 2.2",
 				"name" : "Aggregation",
-				"Key(s)" : "e.g. l.l_orderkey",
 				"Group Key(s)" : "e.g. l.l_orderkey",
 				"Rows" : "12943",
 				"link" : {
