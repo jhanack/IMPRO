@@ -1,0 +1,84 @@
+{
+	"tree": {
+		"nodeName": "NODE NAME 1",
+		"name": "Sort",
+		"Sort Key(s)": "sum(l.l_extendedprice * (1 - l.l_discount)) desc, o.o_orderdate",
+		"link": {
+			"name": "Link node 1 to 2.1",
+			"nodeName": "NODE NAME 2.1",
+			"direction": "SYNC"
+		},
+		"children": [
+			{
+				"nodeName": "NODE NAME 2.1",
+				"name": "Join",
+				"Type": "Block-Nested-Loop-Hash-Join",
+				"Table 1": "o",
+				"Table 2": "customers",
+				"Rows": "xxxxxxx",
+				"Keys": "(c.c_custkey = o.o_custkey)",
+				"link": {
+					"name": "Link node 1 to 2.1",
+					"nodeName": "NODE NAME 2.1",
+					"direction": "SYNC"
+				},
+				"children": [
+					{
+						"nodeName": "NODE NAME 3.1",
+						"name": "Join",
+						"Type": "Block-Nested-Loop-Hash-Join",
+						"Table 1": "l",
+						"Table 2": "orders",
+						"Rows": "xxxxxxx",
+						"Keys": "(l.l_orderkey = o.o_orderkey)",
+						"link": {
+							"name": "Link node 2.1 to 3.1",
+							"nodeName": "NODE NAME 3.1",
+							"direction": "SYNC"
+						},
+						"children": [
+							{
+								"nodeName": "NODE NAME 4.1",
+								"name": "Filter",
+								"Type": "Hash",
+								"on Table": "l",
+								"Condition": "l.l_shipdate > DATE'1995-03-15'",
+								"link": {
+									"name": "Link node 3.1 to 4.1",
+									"nodeName": "NODE NAME 4.1",
+									"direction": "SYNC"
+								},
+								"children": []
+							},
+							{
+								"nodeName": "NODE NAME 7.1",
+								"name": "Filter",
+								"Type": "Sequential",
+								"on Table": "orders",
+								"Condition": "none",
+								"link": {
+									"name": "Link node 3.1 to 4.2",
+									"nodeName": "NODE NAME 4.2",
+									"direction": "SYNC"
+								},
+								"children": []
+							}
+						]
+					},
+					{
+						"nodeName": "NODE NAME 6.2",
+						"name": "Filter",
+						"Type": "Sequential",
+						"on Table": "customers",
+						"Condition": "none",
+						"link": {
+							"name": "Link node 2.1 to 3.2",
+							"nodeName": "NODE NAME 3.2",
+							"direction": "SYNC"
+						}
+					}
+				]
+			}
+		]
+	}
+}
