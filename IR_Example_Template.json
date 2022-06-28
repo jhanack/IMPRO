@@ -2,10 +2,11 @@
 	"tree" : {
 		"nodeName" : "NODE NAME 1",
 		"name" : "Join",
-		"Type" : "e.g. BNLH (MDB), Hash Join (PG)",
+		"Type" : "e.g. BNLH (MDB), Parallel Hash Join (PG)",
 		"Table 1" : "e.g. o.o_orderkey",
 		"Table 2" : "e.g. l.l_orderkey",
 		"Rows" : "39459834",
+		"Keys" : "x = x",
 		"link" : {
 				"name" : "Link NODE NAME 1",
 				"nodeName" : "NODE NAME 1",
@@ -25,7 +26,7 @@
 				"children" : [{
 						"nodeName" : "NODE NAME 3.1",
 						"name" : "Sort",
-						"Sort Key" : "e.g. o.o_orderkey",
+						"Sort Key(s)" : "e.g. o.o_orderkey",
 						"link" : {
 								"name" : "Link node 2.1 to 3.1",
 								"nodeName" : "NODE NAME 3.1",
