@@ -1,4 +1,4 @@
-Name = Filter, Join, Sort, Limit, Aggregate
+Name = Filter, Join, Sort, Limit, Aggregation
 
 
 if "Type" = any kind of join
