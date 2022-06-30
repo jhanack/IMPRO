@@ -1,10 +1,14 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import java.io.File;
+import java.io.IOException;
 
 public class MapJSON {
-    public static void main(String[] args) throws JsonProcessingException {
+    public static void main(String[] args) throws IOException {
         String jsonStr = "{\n" +
                 "    \"Plan\": {\n" +
                 "      \"Node Type\": \"Limit\",\n" +
@@ -179,55 +183,51 @@ public class MapJSON {
                 "  }";
 
         ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode node = objectMapper.readValue(jsonStr, JsonNode.class);
-        JsonNode name = node.get("Plan");
-        JsonNode array = name.get("Plans");
-        JsonNode array2 = array.get(0);
+        JsonNode tree = objectMapper.readValue(jsonStr, JsonNode.class);
+        JsonNode plan = tree.get("Plan");
+        int itercount = 0;
+        addLinks(plan, itercount);
+        System.out.println(plan);
+        ObjectWriter writer = objectMapper.writer(new DefaultPrettyPrinter());
+        writer.writeValue(new File("Test_Output.json"), plan);
 
-
-        String jsonStr2 = "{\n" +
+        String first_link_string = "{\n" +
                 "\t\t\t\"name\": \"Link NODE NAME 1\",\n" +
                 "\t\t\t\"nodeName\": \"NODE NAME 1\",\n" +
                 "\t\t\t\"direction\": \"ASYN\"\n" +
                 "\t\t},";
-        JsonNode node_links = objectMapper.readValue(jsonStr2, JsonNode.class);
+        String follow_link_string = "{\n" +
+                "\t\t\t\"name\": \"Link node x to y.z\",\n" +
+                "\t\t\t\"nodeName\": \"NODE NAME y.2\",\n" +
+                "\t\t\t\"direction\": \"ASYN\"\n" +
+                "\t\t},";
 
 
-        ((ObjectNode) array2.get("Plans").get(0)).put("link", node_links);
+
+        //((ObjectNode) array2.get("Plans").get(0)).put("link", node_links);
         //JsonNode name2 = array2.get("link");
         //JsonNode name3 = name2.get("direction");
         //String techStr = name2.asText();
         //System.out.println(node);
         //System.out.println(name3);
-        System.out.println(array2);
 
-        //System.out.println(name);
-       // for (int i = 0; i < 100; i++) {
-       //     System.out.println(i);
-      //  }
-
-
-        /*
-        try {
-            JsonNode node = objectMapper.readValue(jsonStr, JsonNode.class);
-            JsonNode nameNode = node.get("name");
-            String name = nameNode.asText();
-            System.out.println(name);
-            JsonNode ageNode = node.get("age");
-            int age = ageNode.asInt();
-            System.out.println(age);
-            JsonNode array = node.get("technologies");
-            JsonNode jsonNode = array.get(1);
-            String techStr = jsonNode.asText();
-            System.out.println(techStr);
-            JsonNode child = node.get("nestedObject");
-            JsonNode childField = child.get("field");
-            String field = childField.asText();
-            System.out.println(field);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-         */
     }
+
+    public static void addLinks(JsonNode plan, int itercount) throws JsonProcessingException {
+        String follow_link_string = "{\n" +
+                "\t\t\t\"name\": \"Link node x to y.z\",\n" +
+                "\t\t\t\"nodeName\": \"NODE NAME y.z\",\n" +
+                "\t\t\t\"direction\": \"ASYN\"\n" +
+                "\t\t},";
+        ObjectMapper linkMapper = new ObjectMapper();
+        if (plan.get("Plans") != null) {
+            JsonNode children = plan.get("Plans");
+            JsonNode node_links = linkMapper.readValue(follow_link_string, JsonNode.class);
+            for (int i = 0; i < children.size(); i++) {
+                ((ObjectNode) children.get(i)).put("link", node_links);
+                addLinks(children.get(i), itercount + 1);
+            }
+        }
+    }
+
 }
