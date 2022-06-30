@@ -1,0 +1,125 @@
+{
+	"tree": {
+		"nodeName": "NODE NAME 1",
+		"nodetype": "Limit",
+		"type": "type3",
+		"code" : "xx",
+		"Version": "v1.0",
+		"link": {
+			"name": "Link NODE NAME 1",
+			"nodeName": "NODE NAME 1",
+			"direction": "ASYN"
+		},
+		"children": [
+			{
+				"nodeName": "NODE NAME 2.1",
+				"name": "Sort",
+				"Sort Key(s)": "sum(l.l_extendedprice * (1 - l.l_discount)) desc, o.o_orderdate",
+				"Version": "v1.0",
+				"link": {
+					"name": "Link node 1 to 2.1",
+					"nodeName": "NODE NAME 2.1",
+					"direction": "SYNC"
+				},
+				"children": [
+					{
+						"nodeName": "NODE NAME 3.1",
+						"name": "Aggregation",
+						"Group Key(s)": "l.l_orderkey, o.o_orderdate, o.o_shippriority",
+						"Version": "v1.0",
+						"link": {
+							"name": "Link node 2.1 to 3.1",
+							"nodeName": "NODE NAME 3.1",
+							"direction": "SYNC"
+						},
+						"children": [
+							{
+								"nodeName": "NODE NAME 4.1",
+								"name": "Sort",
+								"Sort Key(s)": "l.l_orderkey, o.o_orderdate, o.o_shippriority",
+								"link": {
+									"name": "Link node 3.1 to 4.1",
+									"nodeName": "NODE NAME 4.1",
+									"direction": "SYNC"
+								},
+								"children": [
+									{
+										"nodeName": "NODE NAME 5.1",
+										"name": "Join",
+										"Type": "Parallel Hash Join",
+										"Table 1": "o.o_orderkey",
+										"Table 2": "l.l_orderkey",
+										"Rows": "xxxxxxx",
+										"link": {
+											"name": "Link node 4.1 to 5.1",
+											"nodeName": "NODE NAME 5.1",
+											"direction": "SYNC"
+										},
+										"children": [
+											{
+												"nodeName": "NODE NAME 6.1",
+												"name": "Join",
+												"Type": "Parallel Hash Join",
+												"Table 1": "sf1_lineitem",
+												"Table 2": "-",
+												"Rows": "xxxxxxx",
+												"Keys": "(l.l_orderkey = o.o_orderkey)",
+												"link": {
+													"name": "Link node 5.1 to 6.1",
+													"nodeName": "NODE NAME 6.1",
+													"direction": "SYNC"
+												},
+												"children": [
+													{
+														"nodeName": "NODE NAME 7.1",
+														"name": "Filter",
+														"Type": "Sequential",
+														"on Table": "sf1_orders",
+														"Condition": "o_orderdate < '1995-03-15'::date",
+														"link": {
+															"name": "Link node 6.1 to 7.1",
+															"nodeName": "NODE NAME 7.1",
+															"direction": "SYNC"
+														},
+														"children": []
+													},
+													{
+														"nodeName": "NODE NAME 7.1",
+														"name": "Filter",
+														"Type": "Sequential",
+														"on Table": "sf1_customer",
+														"Condition": "c_mktsegment = 'BUILDING'::bpchar",
+														"link": {
+															"name": "Link node 6.1 to 7.2",
+															"nodeName": "NODE NAME 7.2",
+															"direction": "SYNC"
+														},
+														"children": []
+													}
+												]
+											},
+											{
+												"nodeName": "NODE NAME 6.2",
+												"name": "Filter",
+												"Type": "Sequential",
+												"on Table": "lineitem",
+												"Condition": "(l_shipdate > '1995-03-15'::date)",
+												"link": {
+													"name": "Link node 5.1 to 6.2",
+													"nodeName": "NODE NAME 6.2",
+													"direction": "SYNC"
+												}
+											}
+										]
+									}
+								]
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+}
+
+
