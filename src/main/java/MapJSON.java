@@ -190,18 +190,18 @@ public class MapJSON {
         ObjectMapper firstLinkMapper = new ObjectMapper();
         JsonNode first_node_link = firstLinkMapper.readValue(first_link_string, JsonNode.class);
 
-        jsonStr.replace("Plan","tree");
-        jsonStr.replaceAll("Plans","children");
+        jsonStr = jsonStr.replaceFirst("Plan","tree");
+        jsonStr = jsonStr.replaceAll("Plans","children");
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode tree = objectMapper.readValue(jsonStr, JsonNode.class);
-        JsonNode plan = tree.get("Plan");
+        JsonNode plan = tree.get("tree");
         ((ObjectNode) plan).put("link", first_node_link);
         ((ObjectNode) plan).put("nodeName", 1);
         int nodecount = 1;
         int childcount = 1;
         addLinks(plan, nodecount, childcount);
         ObjectWriter writer = objectMapper.writer(new DefaultPrettyPrinter());
-        writer.writeValue(new File("Test_Output.json"), plan);
+        writer.writeValue(new File("Test_Output.json"), tree);
 
         //((ObjectNode) array2.get("Plans").get(0)).put("link", node_links);
         //JsonNode name2 = array2.get("link");
