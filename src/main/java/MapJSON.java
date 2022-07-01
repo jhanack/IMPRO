@@ -185,11 +185,13 @@ public class MapJSON {
         String first_link_string = "{\n" +
                 "\t\t\t\"name\": \"Link NODE NAME 1\",\n" +
                 "\t\t\t\"nodeName\": \"NODE NAME 1\",\n" +
-                "\t\t\t\"direction\": \"ASYN\"\n" +
+                "\t\t\t\"direction\": \"SYNC\"\n" +
                 "\t\t},";
         ObjectMapper firstLinkMapper = new ObjectMapper();
         JsonNode first_node_link = firstLinkMapper.readValue(first_link_string, JsonNode.class);
 
+        jsonStr.replace("Plan","tree");
+        jsonStr.replaceAll("Plans","children");
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode tree = objectMapper.readValue(jsonStr, JsonNode.class);
         JsonNode plan = tree.get("Plan");
@@ -214,7 +216,7 @@ public class MapJSON {
         String follow_link_string = "{\n" +
                 "\t\t\t\"name\": \"Link node x to q.z\",\n" +
                 "\t\t\t\"nodeName\": \"NODE NAME q.z\",\n" +
-                "\t\t\t\"direction\": \"ASYN\"\n" +
+                "\t\t\t\"direction\": \"SYNC\"\n" +
                 "\t\t},";
         ObjectMapper linkMapper = new ObjectMapper();
         if (plan.get("Plans") != null) {
@@ -226,11 +228,11 @@ public class MapJSON {
                 follow_link_string = follow_link_string.replaceAll("x", Integer.toString(nodecount));
             }
             follow_link_string = follow_link_string.replaceAll("q", Integer.toString(nodecount + 1));
+            ((ObjectNode) plan).put("nodeName", Integer.toString(nodecount + 1) + "." + Integer.toString(childcount));
             for (int i = 0; i < children.size(); i++) {
                 follow_link_string = follow_link_string.replaceAll("z", Integer.toString(i + 1));
                 JsonNode node_links = linkMapper.readValue(follow_link_string, JsonNode.class);
                 ((ObjectNode) children.get(i)).put("link", node_links);
-                ((ObjectNode) plan).put("nodeName", Integer.toString(nodecount + 1) + "." + Integer.toString(i + 1));
                 addLinks(children.get(i), nodecount + 1, i + 1);
             }
         }

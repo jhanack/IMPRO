@@ -79,7 +79,7 @@
                 "link" : {
                   "name" : "Link node 7.1 to 8.1",
                   "nodeName" : "NODE NAME 8.1",
-                  "direction" : "ASYN"
+                  "direction" : "SYNC"
                 }
               }, {
                 "Node Type" : "Hash",
@@ -114,7 +114,7 @@
                     "link" : {
                       "name" : "Link node 9.1 to 10.1",
                       "nodeName" : "NODE NAME 10.1",
-                      "direction" : "ASYN"
+                      "direction" : "SYNC"
                     }
                   }, {
                     "Node Type" : "Hash",
@@ -138,76 +138,76 @@
                       "link" : {
                         "name" : "Link node 10.2 to 11.1",
                         "nodeName" : "NODE NAME 11.1",
-                        "direction" : "ASYN"
+                        "direction" : "SYNC"
                       }
                     } ],
                     "link" : {
                       "name" : "Link node 9.1 to 10.1",
                       "nodeName" : "NODE NAME 10.1",
-                      "direction" : "ASYN"
+                      "direction" : "SYNC"
                     },
-                    "nodeName" : "11.1"
+                    "nodeName" : "11.2"
                   } ],
                   "link" : {
                     "name" : "Link node 8.2 to 9.1",
                     "nodeName" : "NODE NAME 9.1",
-                    "direction" : "ASYN"
+                    "direction" : "SYNC"
                   },
-                  "nodeName" : "10.2"
+                  "nodeName" : "10.1"
                 } ],
                 "link" : {
                   "name" : "Link node 7.1 to 8.1",
                   "nodeName" : "NODE NAME 8.1",
-                  "direction" : "ASYN"
+                  "direction" : "SYNC"
                 },
-                "nodeName" : "9.1"
+                "nodeName" : "9.2"
               } ],
               "link" : {
                 "name" : "Link node 6.1 to 7.1",
                 "nodeName" : "NODE NAME 7.1",
-                "direction" : "ASYN"
+                "direction" : "SYNC"
               },
-              "nodeName" : "8.2"
+              "nodeName" : "8.1"
             } ],
             "link" : {
               "name" : "Link node 5.1 to 6.1",
               "nodeName" : "NODE NAME 6.1",
-              "direction" : "ASYN"
+              "direction" : "SYNC"
             },
             "nodeName" : "7.1"
           } ],
           "link" : {
             "name" : "Link node 4.1 to 5.1",
             "nodeName" : "NODE NAME 5.1",
-            "direction" : "ASYN"
+            "direction" : "SYNC"
           },
           "nodeName" : "6.1"
         } ],
         "link" : {
           "name" : "Link node 3.1 to 4.1",
           "nodeName" : "NODE NAME 4.1",
-          "direction" : "ASYN"
+          "direction" : "SYNC"
         },
         "nodeName" : "5.1"
       } ],
       "link" : {
         "name" : "Link node 2.1 to 3.1",
         "nodeName" : "NODE NAME 3.1",
-        "direction" : "ASYN"
+        "direction" : "SYNC"
       },
       "nodeName" : "4.1"
     } ],
     "link" : {
       "name" : "Link node 1 to 2.1",
       "nodeName" : "NODE NAME 2.1",
-      "direction" : "ASYN"
+      "direction" : "SYNC"
     },
     "nodeName" : "3.1"
   } ],
   "link" : {
     "name" : "Link NODE NAME 1",
     "nodeName" : "NODE NAME 1",
-    "direction" : "ASYN"
+    "direction" : "SYNC"
   },
   "nodeName" : "2.1"
 }
