@@ -182,27 +182,24 @@ public class MapJSON {
                 "    }\n" +
                 "  }";
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode tree = objectMapper.readValue(jsonStr, JsonNode.class);
-        JsonNode plan = tree.get("Plan");
-        int itercount = 0;
-        addLinks(plan, itercount);
-        System.out.println(plan);
-        ObjectWriter writer = objectMapper.writer(new DefaultPrettyPrinter());
-        writer.writeValue(new File("Test_Output.json"), plan);
-
         String first_link_string = "{\n" +
                 "\t\t\t\"name\": \"Link NODE NAME 1\",\n" +
                 "\t\t\t\"nodeName\": \"NODE NAME 1\",\n" +
                 "\t\t\t\"direction\": \"ASYN\"\n" +
                 "\t\t},";
-        String follow_link_string = "{\n" +
-                "\t\t\t\"name\": \"Link node x to y.z\",\n" +
-                "\t\t\t\"nodeName\": \"NODE NAME y.2\",\n" +
-                "\t\t\t\"direction\": \"ASYN\"\n" +
-                "\t\t},";
+        ObjectMapper firstLinkMapper = new ObjectMapper();
+        JsonNode first_node_link = firstLinkMapper.readValue(first_link_string, JsonNode.class);
 
-
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode tree = objectMapper.readValue(jsonStr, JsonNode.class);
+        JsonNode plan = tree.get("Plan");
+        ((ObjectNode) plan).put("link", first_node_link);
+        ((ObjectNode) plan).put("nodeName", 1);
+        int nodecount = 1;
+        int childcount = 1;
+        addLinks(plan, nodecount, childcount);
+        ObjectWriter writer = objectMapper.writer(new DefaultPrettyPrinter());
+        writer.writeValue(new File("Test_Output.json"), plan);
 
         //((ObjectNode) array2.get("Plans").get(0)).put("link", node_links);
         //JsonNode name2 = array2.get("link");
@@ -213,19 +210,28 @@ public class MapJSON {
 
     }
 
-    public static void addLinks(JsonNode plan, int itercount) throws JsonProcessingException {
+    public static void addLinks(JsonNode plan, int nodecount, int childcount) throws JsonProcessingException {
         String follow_link_string = "{\n" +
-                "\t\t\t\"name\": \"Link node x to y.z\",\n" +
-                "\t\t\t\"nodeName\": \"NODE NAME y.z\",\n" +
+                "\t\t\t\"name\": \"Link node x to q.z\",\n" +
+                "\t\t\t\"nodeName\": \"NODE NAME q.z\",\n" +
                 "\t\t\t\"direction\": \"ASYN\"\n" +
                 "\t\t},";
         ObjectMapper linkMapper = new ObjectMapper();
         if (plan.get("Plans") != null) {
             JsonNode children = plan.get("Plans");
-            JsonNode node_links = linkMapper.readValue(follow_link_string, JsonNode.class);
+            if (nodecount > 1) {
+                follow_link_string = follow_link_string.replaceAll("x", Integer.toString(nodecount) + "." + Integer.toString(childcount));
+            }
+            else {
+                follow_link_string = follow_link_string.replaceAll("x", Integer.toString(nodecount));
+            }
+            follow_link_string = follow_link_string.replaceAll("q", Integer.toString(nodecount + 1));
             for (int i = 0; i < children.size(); i++) {
+                follow_link_string = follow_link_string.replaceAll("z", Integer.toString(i + 1));
+                JsonNode node_links = linkMapper.readValue(follow_link_string, JsonNode.class);
                 ((ObjectNode) children.get(i)).put("link", node_links);
-                addLinks(children.get(i), itercount + 1);
+                ((ObjectNode) plan).put("nodeName", Integer.toString(nodecount + 1) + "." + Integer.toString(i + 1));
+                addLinks(children.get(i), nodecount + 1, i + 1);
             }
         }
     }
