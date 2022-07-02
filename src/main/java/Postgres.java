@@ -55,7 +55,6 @@ public class Postgres implements ExplainInterface{
         originalExplainString = originalExplainString.replaceAll("Hash Cond","Hash_Condition");
         originalExplainString = originalExplainString.replaceAll("Join Type","Join_Type");
         originalExplainString = originalExplainString.replaceAll("Relation Name","Relation_Name");
-        System.out.println(originalExplainString);
         return processExplainNodes(originalExplainString);
     }
 
