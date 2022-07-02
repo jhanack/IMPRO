@@ -194,6 +194,7 @@ public class MapJSON {
         jsonStr = jsonStr.replaceAll("Plans","children");
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode tree = objectMapper.readValue(jsonStr, JsonNode.class);
+        ((ObjectNode) tree).remove("JIT");
         JsonNode plan = tree.get("tree");
         ((ObjectNode) plan).put("link", first_node_link);
         ((ObjectNode) plan).put("nodeName", 1);

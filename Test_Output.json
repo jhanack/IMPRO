@@ -142,15 +142,5 @@
       "direction" : "SYNC"
     },
     "nodeName" : 1
-  },
-  "JIT" : {
-    "Worker Number" : -1,
-    "Functions" : 34,
-    "Options" : {
-      "Inlining" : false,
-      "Optimization" : false,
-      "Expressions" : true,
-      "Deforming" : true
-    }
   }
 }
