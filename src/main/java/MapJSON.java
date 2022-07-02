@@ -192,6 +192,23 @@ public class MapJSON {
 
         jsonStr = jsonStr.replaceFirst("Plan","tree");
         jsonStr = jsonStr.replaceAll("Plans","children");
+        jsonStr = jsonStr.replaceAll("Node Type","Node-Type");
+        jsonStr = jsonStr.replaceAll("Parallel Aware","Parallel-Aware");
+        jsonStr = jsonStr.replaceAll("Startup Cost","Startup-Cost");
+        jsonStr = jsonStr.replaceAll("Total Cost","Total-Cost");
+        jsonStr = jsonStr.replaceAll("Plan Rows","Plan-Rows");
+        jsonStr = jsonStr.replaceAll("Plan Width","Plan-Width");
+        jsonStr = jsonStr.replaceAll("Parent Relationship","Parent-Relationship");
+        jsonStr = jsonStr.replaceAll("Partial Mode","Partial-Mode");
+        jsonStr = jsonStr.replaceAll("Sort Key","Sort-Key");
+        jsonStr = jsonStr.replaceAll("Group Key","Group-Key");
+        jsonStr = jsonStr.replaceAll("Workers Planned","Workers-Planned");
+        jsonStr = jsonStr.replaceAll("Join Type","Join-Type");
+        jsonStr = jsonStr.replaceAll("Inner Unique","Inner-Unique");
+        jsonStr = jsonStr.replaceAll("Hash Cond","Hash-Condition");
+        jsonStr = jsonStr.replaceAll("Join Type","Join-Type");
+        jsonStr = jsonStr.replaceAll("Relation Name","Relation-Name");
+
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode tree = objectMapper.readValue(jsonStr, JsonNode.class);
         ((ObjectNode) tree).remove("JIT");
