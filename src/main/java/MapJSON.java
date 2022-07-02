@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class MapJSON {
+
     public static void main(String[] args) throws IOException {
         String jsonStr = "{\n" +
                 "    \"Plan\": {\n" +
