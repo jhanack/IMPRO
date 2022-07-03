@@ -21,11 +21,17 @@
 /*
  * Styles of the components of the tree
  */
-#tree-container {
+ #tree-container {
 	position: absolute;
 	left: 0px;
 	width: 100%;
 }
+
+
+body {
+	background-image: url("2.jpg");
+	background-color: #cccccc;
+   } 
 
 .svgContainer {
 	display: block;
@@ -41,13 +47,13 @@
 
 .node-rect-closed {
 	stroke-width: 2px;
-	stroke: rgb(0,0,0);
+	stroke: rgb(36, 35, 35);
 }
 
 .link {
 	fill: none;
-	stroke: lightsteelblue;
-	stroke-width: 2px;
+	stroke: rgb(225, 122, 122);
+	stroke-width: 2.5px;
 }
 
 .linkselected {
@@ -57,7 +63,7 @@
 }
 
 .arrow {
-	fill: lightsteelblue;
+	fill: rgb(218, 71, 71);
 	stroke-width: 1px;
 }
 

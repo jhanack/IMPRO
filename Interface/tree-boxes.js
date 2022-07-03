@@ -45,7 +45,7 @@ function treeBoxes(urlService, jsonData)
 		width = 800 - margin.right - margin.left,
 		height = 400 - margin.top - margin.bottom;
 	
-	var rectNode = { width : 120, height : 45, textMargin : 5 },
+	var rectNode = { width : 135, height : 100, textMargin : 5 },
 		tooltip = { width : 150, height : 40, textMargin : 5 };
 	var i = 0,
 		duration = 750,
@@ -212,12 +212,14 @@ function treeBoxes(urlService, jsonData)
 				})
 		.append('xhtml').html(function(d) {
 					return '<div style="width: '
-							+ (rectNode.width - rectNode.textMargin * 2) + 'px; height: '
-							+ (rectNode.height - rectNode.textMargin * 2) + 'px;" class="node-text wordwrap">'
-							+ '<b>' + d.nodeName + '</b><br>'
-							+ 'Name:' + d.name + '<br>'
-							+ 'Rows:' + d.Rows + '<br>'	
-							+ '<b>Version: </b>' + d.version + '<br>'
+							+ (rectNode.width  - rectNode.textMargin * 2) + 'px; height: '
+							+ (rectNode.height  - rectNode.textMargin * 2) + 'px;" class="node-text wordwrap">'
+							+ '<b> Node Type: ' + d.Node_Type + '</b><br><br>'
+							+ 'Parallel Aware: ' + d.Parallel_Aware + '<br>'	
+							+ 'Startup Cost: ' + d.Startup_Cost + '<br>'	
+							+ 'otal Cost: ' + d.Total_Cost + '<br>'	
+							+ 'Plan Rows: ' + d.Plan_Rows + '<br>'	
+							+ 'Plan Width: ' + d.Plan_Width + '<br>'	
 							+ '</div>';
 				})
 		.on('mouseover', function(d) {
