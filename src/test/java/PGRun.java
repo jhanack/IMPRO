@@ -9,13 +9,13 @@ import java.nio.file.Path;
 import java.sql.SQLException;
 
 
-public class PostgresTest {
+public class PGRun {
     public static void main(String[] args) throws IOException, SQLException {
-        Path q3 = Path.of("resources/queries/q3_sf1.txt");
-        String query = Files.readString(q3);
-        Postgres Q3_Test = new Postgres();
+        Path queryString = Path.of("resources/queries/q10_sf1.txt");
+        String query = Files.readString(queryString);
+        Postgres PGRun = new Postgres();
         ObjectMapper objectMapper = new ObjectMapper();
         ObjectWriter writer = objectMapper.writer(new DefaultPrettyPrinter());
-        writer.writeValue(new File("Test_Output.json"), Q3_Test.addExplainToQuery(query));
+        writer.writeValue(new File("resources/IR-JSON-outputs/Q10_PG.json"), PGRun.addExplainToQuery(query));
     }
 }
