@@ -76,7 +76,12 @@
                   "Total_Cost" : 146789.13,
                   "Plan_Rows" : 1337620,
                   "Plan_Width" : 20,
-                  "Filter" : "(l_shipdate > '1995-03-15'::date)"
+                  "Filter" : "(l_shipdate > '1995-03-15'::date)",
+                  "link" : {
+                    "name" : "Link node 7.1 to 8.1",
+                    "nodeName" : "NODE NAME 8.1",
+                    "direction" : "SYNC"
+                  }
                 }, {
                   "Node_Type" : "Hash",
                   "Parent_Relationship" : "Inner",
@@ -106,7 +111,12 @@
                       "Total_Cost" : 34621.5,
                       "Plan_Rows" : 304753,
                       "Plan_Width" : 20,
-                      "Filter" : "(o_orderdate < '1995-03-15'::date)"
+                      "Filter" : "(o_orderdate < '1995-03-15'::date)",
+                      "link" : {
+                        "name" : "Link node 9.1 to 10.1",
+                        "nodeName" : "NODE NAME 10.1",
+                        "direction" : "SYNC"
+                      }
                     }, {
                       "Node_Type" : "Hash",
                       "Parent_Relationship" : "Inner",
@@ -125,22 +135,81 @@
                         "Total_Cost" : 4366.25,
                         "Plan_Rows" : 12677,
                         "Plan_Width" : 4,
-                        "Filter" : "(c_mktsegment = 'BUILDING'::bpchar)"
-                      } ]
-                    } ]
-                  } ]
-                } ]
-              } ]
-            } ]
-          } ]
-        } ]
-      } ]
+                        "Filter" : "(c_mktsegment = 'BUILDING'::bpchar)",
+                        "link" : {
+                          "name" : "Link node 10.2 to 11.1",
+                          "nodeName" : "NODE NAME 11.1",
+                          "direction" : "SYNC"
+                        }
+                      } ],
+                      "link" : {
+                        "name" : "Link node 9.1 to 10.1",
+                        "nodeName" : "NODE NAME 10.1",
+                        "direction" : "SYNC"
+                      },
+                      "nodeName" : "10.2"
+                    } ],
+                    "link" : {
+                      "name" : "Link node 8.2 to 9.1",
+                      "nodeName" : "NODE NAME 9.1",
+                      "direction" : "SYNC"
+                    },
+                    "nodeName" : "9.1"
+                  } ],
+                  "link" : {
+                    "name" : "Link node 7.1 to 8.1",
+                    "nodeName" : "NODE NAME 8.1",
+                    "direction" : "SYNC"
+                  },
+                  "nodeName" : "8.2"
+                } ],
+                "link" : {
+                  "name" : "Link node 6.1 to 7.1",
+                  "nodeName" : "NODE NAME 7.1",
+                  "direction" : "SYNC"
+                },
+                "nodeName" : "7.1"
+              } ],
+              "link" : {
+                "name" : "Link node 5.1 to 6.1",
+                "nodeName" : "NODE NAME 6.1",
+                "direction" : "SYNC"
+              },
+              "nodeName" : "6.1"
+            } ],
+            "link" : {
+              "name" : "Link node 4.1 to 5.1",
+              "nodeName" : "NODE NAME 5.1",
+              "direction" : "SYNC"
+            },
+            "nodeName" : "5.1"
+          } ],
+          "link" : {
+            "name" : "Link node 3.1 to 4.1",
+            "nodeName" : "NODE NAME 4.1",
+            "direction" : "SYNC"
+          },
+          "nodeName" : "4.1"
+        } ],
+        "link" : {
+          "name" : "Link node 2.1 to 3.1",
+          "nodeName" : "NODE NAME 3.1",
+          "direction" : "SYNC"
+        },
+        "nodeName" : "3.1"
+      } ],
+      "link" : {
+        "name" : "Link node 1 to 2.1",
+        "nodeName" : "NODE NAME 2.1",
+        "direction" : "SYNC"
+      },
+      "nodeName" : "2.1"
     } ],
     "link" : {
       "name" : "Link NODE NAME 1",
       "nodeName" : "NODE NAME 1",
       "direction" : "SYNC"
     },
-    "nodeName" : 1
+    "nodeName" : "1"
   }
 }

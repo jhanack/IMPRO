@@ -72,7 +72,7 @@ public class Postgres implements ExplainInterface{
         ((ObjectNode) tree).remove("JIT");
         JsonNode plan = tree.get("tree");
         ((ObjectNode) plan).put("link", first_node_link);
-        ((ObjectNode) plan).put("nodeName", 1);
+        ((ObjectNode) plan).put("nodeName", "1");
         int nodecount = 1;
         int childcount = 1;
         addLinks(plan, nodecount, childcount);
@@ -89,16 +89,16 @@ public class Postgres implements ExplainInterface{
                 "\t\t\t\"direction\": \"SYNC\"\n" +
                 "\t\t},";
         ObjectMapper linkMapper = new ObjectMapper();
-        if (plan.get("Plans") != null) {
-            JsonNode children = plan.get("Plans");
+        if (plan.get("children") != null) {
+            JsonNode children = plan.get("children");
             if (nodecount > 1) {
                 follow_link_string = follow_link_string.replaceAll("x", Integer.toString(nodecount) + "." + Integer.toString(childcount));
+                ((ObjectNode) plan).put("nodeName", Integer.toString(nodecount) + "." + Integer.toString(childcount));
             }
             else {
                 follow_link_string = follow_link_string.replaceAll("x", Integer.toString(nodecount));
             }
             follow_link_string = follow_link_string.replaceAll("q", Integer.toString(nodecount + 1));
-            ((ObjectNode) plan).put("nodeName", Integer.toString(nodecount + 1) + "." + Integer.toString(childcount));
             for (int i = 0; i < children.size(); i++) {
                 follow_link_string = follow_link_string.replaceAll("z", Integer.toString(i + 1));
                 JsonNode node_links = linkMapper.readValue(follow_link_string, JsonNode.class);
