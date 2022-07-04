@@ -142,9 +142,4 @@ public class MapJsonMDB implements ExplainInterface {
     public void addLinks(JsonNode plan, int nodecount, int childcount) throws JsonProcessingException {
 
     }
-
-    @Override
-    public JsonNode explainToIR(String originalExplainString) {
-        return null;
-    }
 }

@@ -10,5 +10,4 @@ public interface ExplainInterface {
     public JsonNode preprocessExplainString(String originalExplainString) throws JsonProcessingException;
     public JsonNode processExplainNodes(String originalExplainString) throws JsonProcessingException;
     public void addLinks(JsonNode plan, int nodecount, int childcount) throws JsonProcessingException;
-    public JsonNode explainToIR(String originalExplainString);
 }

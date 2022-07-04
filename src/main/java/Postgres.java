@@ -107,9 +107,4 @@ public class Postgres implements ExplainInterface{
             }
         }
     }
-
-    @Override
-    public JsonNode explainToIR(String originalExplainString) {
-        return null;
-    }
 }
