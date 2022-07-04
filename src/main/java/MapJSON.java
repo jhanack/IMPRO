@@ -242,12 +242,12 @@ public class MapJSON {
             JsonNode children = plan.get("children");
             if (nodecount > 1) {
                 follow_link_string = follow_link_string.replaceAll("x", Integer.toString(nodecount) + "." + Integer.toString(childcount));
+                ((ObjectNode) plan).put("nodeName", Integer.toString(nodecount) + "." + Integer.toString(childcount));
             }
             else {
                 follow_link_string = follow_link_string.replaceAll("x", Integer.toString(nodecount));
             }
             follow_link_string = follow_link_string.replaceAll("q", Integer.toString(nodecount + 1));
-            ((ObjectNode) plan).put("nodeName", Integer.toString(nodecount + 1) + "." + Integer.toString(childcount));
             for (int i = 0; i < children.size(); i++) {
                 follow_link_string = follow_link_string.replaceAll("z", Integer.toString(i + 1));
                 JsonNode node_links = linkMapper.readValue(follow_link_string, JsonNode.class);
