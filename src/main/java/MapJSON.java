@@ -191,6 +191,8 @@ public class MapJSON {
         ObjectMapper firstLinkMapper = new ObjectMapper();
         JsonNode first_node_link = firstLinkMapper.readValue(first_link_string, JsonNode.class);
 
+        jsonStr = jsonStr.replaceFirst("\\[","");
+        jsonStr = jsonStr.substring(0, jsonStr. length()-1);
         jsonStr = jsonStr.replaceFirst("Plan","tree");
         jsonStr = jsonStr.replaceAll("Plans","children");
         jsonStr = jsonStr.replaceAll("Node Type","Node_Type");
