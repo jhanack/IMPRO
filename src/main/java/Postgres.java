@@ -17,18 +17,12 @@ public class Postgres implements ExplainInterface{
     @Override
     public JsonNode getExplainOutput(String query) throws SQLException, IOException {
         Connection dbConn1;
-        dbConn1 = DriverManager.getConnection("jdbc:postgresql://localhost:8080/impro_database", "impro_user", "impro_password");
+        dbConn1 = DriverManager.getConnection("jdbc:postgresql://localhost:8081/impro_database", "impro_user", "impro_password");
         Statement stmt = dbConn1.createStatement();
         stmt.execute(query);
         ResultSet resultSet = stmt.getResultSet();
         resultSet.next();
         String retrievedName = resultSet.getString(1);
-        //File file=new File("Q10_explain_PG.json");
-        //file.createNewFile();
-        //FileWriter fileWriter = new FileWriter(file);
-        //fileWriter.write(retrievedName);
-        //fileWriter.flush();
-        //fileWriter.close();
         stmt.close();
         return preprocessExplainString(retrievedName);
     }

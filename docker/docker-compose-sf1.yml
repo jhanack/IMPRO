@@ -18,7 +18,7 @@ services:
       - test-data:/var/lib/postgresql/tpch:rw
       - ./pg_create_tpch_sf1.sql:/docker-entrypoint-initdb.d/pg_create_tpch_sf1.sql:rw
     ports:
-      - 8080:5432
+      - 8081:5432
     networks:
       - impro_network
 
@@ -39,7 +39,7 @@ services:
       - test-data:/var/lib/postgresql/tpch:rw
       - ./pg_create_tpch_sf1.sql:/docker-entrypoint-initdb.d/pg_create_tpch_sf1.sql:rw
     ports:
-      - 8081:5432
+      - 8082:5432
     networks:
       - impro_network
 
