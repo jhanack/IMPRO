@@ -1,0 +1,35 @@
+    public void addNodes(JsonNode children2, int childcount) throws JsonProcessingException {
+        String follow_link_string = "{\n" +
+                "\t\t\t\"name\": \"Link node x to q.z\",\n" +
+                "\t\t\t\"nodeName\": \"NODE NAME q.z\",\n" +
+                "\t\t\t\"direction\": \"SYNC\"\n" +
+                "\t\t},";
+        ObjectMapper linkMapper = new ObjectMapper();
+        for (int i = 0; i < 3; i++) {
+            ObjectMapper iterMapper = new ObjectMapper();
+            String first_node_string = "";
+            JsonNode myNode = iterMapper.readValue(first_node_string, JsonNode.class);
+            ((ArrayNode) children2).add(myNode);
+            //((ObjectNode) myNode).put("sort_key" + Integer.toString(0 + 2), "empty");
+            JsonNode plan = myNode;
+            if (i == 0) {
+                ((ObjectNode) children2.get(0)).put("node_type", "temporary_table");
+                ((ObjectNode) children2.get(0)).put("temporary_table", plan.get("filesort").get("temporary_table").get("table"));
+            }
+            else {
+                ((ObjectNode) children2.get(i)).put("node_type", "block_nl_join" + Integer.toString(i));
+                //System.out.println(plan.get("filesort").get("temporary_table").get("block_nl_join" + Integer.toString(i)).get("buffer_type"));
+                ((ObjectNode) children2.get(i)).put("buffer_type", plan.get("filesort").get("temporary_table").get("block_nl_join" + Integer.toString(i)).get("buffer_type"));
+                ((ObjectNode) children2.get(i)).put("buffer_size", plan.get("filesort").get("temporary_table").get("block_nl_join" + Integer.toString(i)).get("buffer_size"));
+                ((ObjectNode) children2.get(i)).put("join_type", plan.get("filesort").get("temporary_table").get("block_nl_join" + Integer.toString(i)).get("join_type"));
+                ((ObjectNode) children2.get(i)).put("attached_condition", plan.get("filesort").get("temporary_table").get("block_nl_join" + Integer.toString(i)).get("attached_condition"));
+                //((ArrayNode) children.get(0).get("children")).add((JsonNode) plan.get("filesort").get("temporary_table").get("block_nl_join" + Integer.toString(0 + 1)));
+                //((ObjectNode) children.get(0).get("children").get(0)).set("sort_key", ((ObjectNode) plan).get("filesort").get("temporary_table").get("table"));
+                //((ObjectNode) children.get(0).get("children").get(0)).set("sort_key", ((ObjectNode) plan).get("filesort").get("temporary_table").get("block_nl_join" + Integer.toString(i + 1)));
+                //}
+            }
+            ((ObjectNode) myNode).remove("sort_key");
+            ((ObjectNode) children2.get(i)).putArray("children");
+            ((ArrayNode) children2.get(i).get("children")).add(myNode);
+        }
+    }

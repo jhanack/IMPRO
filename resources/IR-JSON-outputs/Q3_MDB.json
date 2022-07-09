@@ -1,0 +1,91 @@
+{
+  "tree" : {
+    "link" : {
+      "name" : "Link NODE NAME 1",
+      "nodeName" : "NODE NAME 1",
+      "direction" : "SYNC"
+    },
+    "nodeName" : "1",
+    "nodeType" : "filesort",
+    "children" : [ {
+      "sort_key" : "sum(l.l_extendedprice * (1 - l.l_discount)) desc, o.o_orderdate",
+      "children" : [ {
+        "table_name" : "c",
+        "access_type" : "ALL",
+        "rows" : 148547,
+        "filtered" : 100,
+        "attached_condition" : "c.c_mktsegment = 'BUILDING' and c.c_custkey is not null",
+        "node_type" : "temporary_table",
+        "link" : {
+          "name" : "Link node 2.1 to 3.1",
+          "nodeName" : "NODE NAME 3.1",
+          "direction" : "SYNC"
+        }
+      }, {
+        "buffer_type" : "flat",
+        "buffer_size" : "256Kb",
+        "join_type" : "BNLH",
+        "attached_condition" : "o.o_custkey = c.c_custkey and o.o_orderkey is not null",
+        "children" : [ {
+          "table_name" : "o",
+          "access_type" : "hash_ALL",
+          "key" : "#hash#$hj",
+          "key_length" : "5",
+          "used_key_parts" : [ "o_custkey" ],
+          "ref" : [ "impro_database.c.c_custkey" ],
+          "rows" : 1487221,
+          "filtered" : 100,
+          "attached_condition" : "o.o_orderdate < DATE'1995-03-15'",
+          "node_type" : "table",
+          "link" : {
+            "name" : "Link node 3.2 to 4.1",
+            "nodeName" : "NODE NAME 4.1",
+            "direction" : "SYNC"
+          }
+        } ],
+        "node_type" : "block_nl_join1",
+        "link" : {
+          "name" : "Link node 2.1 to 3.1",
+          "nodeName" : "NODE NAME 3.1",
+          "direction" : "SYNC"
+        },
+        "nodeName" : "3.2"
+      }, {
+        "buffer_type" : "incremental",
+        "buffer_size" : "256Kb",
+        "join_type" : "BNLH",
+        "attached_condition" : "l.l_orderkey = o.o_orderkey",
+        "children" : [ {
+          "table_name" : "l",
+          "access_type" : "hash_ALL",
+          "key" : "#hash#$hj",
+          "key_length" : "9",
+          "used_key_parts" : [ "l_orderkey" ],
+          "ref" : [ "impro_database.o.o_orderkey" ],
+          "rows" : 5081778,
+          "filtered" : 100,
+          "attached_condition" : "l.l_shipdate > DATE'1995-03-15'",
+          "node_type" : "table",
+          "link" : {
+            "name" : "Link node 3.3 to 4.1",
+            "nodeName" : "NODE NAME 4.1",
+            "direction" : "SYNC"
+          }
+        } ],
+        "node_type" : "block_nl_join2",
+        "link" : {
+          "name" : "Link node 2.1 to 3.1",
+          "nodeName" : "NODE NAME 3.1",
+          "direction" : "SYNC"
+        },
+        "nodeName" : "3.3"
+      } ],
+      "link" : {
+        "name" : "Link node 1 to 2.1",
+        "nodeName" : "NODE NAME 2.1",
+        "direction" : "SYNC"
+      },
+      "nodeName" : "2.1"
+    } ]
+  }
+}
