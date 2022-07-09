@@ -2,48 +2,64 @@
   "query_block": {
     "select_id": 1,
     "filesort": {
-      "sort_key": "sum(l.l_extendedprice * (1 - l.l_discount)) desc, o.o_orderdate",
+      "sort_key": "sum(sf1_lineitem.l_extendedprice * (1 - sf1_lineitem.l_discount)) desc",
       "temporary_table": {
         "table": {
-          "table_name": "c",
+          "table_name": "sf1_nation",
           "access_type": "ALL",
-          "rows": 147614,
+          "rows": 1,
           "filtered": 100,
-          "attached_condition": "c.c_mktsegment = 'BUILDING' and c.c_custkey is not null"
+          "attached_condition": "sf1_nation.n_nationkey is not null"
         },
         "block-nl-join": {
           "table": {
-            "table_name": "o",
+            "table_name": "sf1_customer",
+            "access_type": "hash_ALL",
+            "key": "#hash#$hj",
+            "key_length": "5",
+            "used_key_parts": ["c_nationkey"],
+            "ref": ["impro_database.sf1_nation.n_nationkey"],
+            "rows": 148547,
+            "filtered": 100
+          },
+          "buffer_type": "flat",
+          "buffer_size": "1Kb",
+          "join_type": "BNLH",
+          "attached_condition": "sf1_customer.c_nationkey = sf1_nation.n_nationkey and sf1_customer.c_custkey is not null"
+        },
+        "block-nl-join": {
+          "table": {
+            "table_name": "sf1_orders",
             "access_type": "hash_ALL",
             "key": "#hash#$hj",
             "key_length": "5",
             "used_key_parts": ["o_custkey"],
-            "ref": ["impro_database.c.c_custkey"],
-            "rows": 1481253,
+            "ref": ["impro_database.sf1_customer.c_custkey"],
+            "rows": 1487221,
             "filtered": 100,
-            "attached_condition": "o.o_orderdate < DATE'1995-03-15'"
-          },
-          "buffer_type": "flat",
-          "buffer_size": "256Kb",
-          "join_type": "BNLH",
-          "attached_condition": "o.o_custkey = c.c_custkey and o.o_orderkey is not null"
-        },
-        "block-nl-join": {
-          "table": {
-            "table_name": "l",
-            "access_type": "hash_ALL",
-            "key": "#hash#$hj",
-            "key_length": "9",
-            "used_key_parts": ["l_orderkey"],
-            "ref": ["impro_database.o.o_orderkey"],
-            "rows": 5784708,
-            "filtered": 100,
-            "attached_condition": "l.l_shipdate > DATE'1995-03-15'"
+            "attached_condition": "sf1_orders.o_orderdate >= DATE'1993-10-01' and sf1_orders.o_orderdate < DATE'1994-01-01'"
           },
           "buffer_type": "incremental",
           "buffer_size": "256Kb",
           "join_type": "BNLH",
-          "attached_condition": "l.l_orderkey = o.o_orderkey"
+          "attached_condition": "sf1_orders.o_custkey = sf1_customer.c_custkey and sf1_orders.o_orderkey is not null"
+        },
+        "block-nl-join": {
+          "table": {
+            "table_name": "sf1_lineitem",
+            "access_type": "hash_ALL",
+            "key": "#hash#$hj",
+            "key_length": "9",
+            "used_key_parts": ["l_orderkey"],
+            "ref": ["impro_database.sf1_orders.o_orderkey"],
+            "rows": 5081778,
+            "filtered": 100,
+            "attached_condition": "sf1_lineitem.l_returnflag = 'R'"
+          },
+          "buffer_type": "incremental",
+          "buffer_size": "256Kb",
+          "join_type": "BNLH",
+          "attached_condition": "sf1_lineitem.l_orderkey = sf1_orders.o_orderkey"
         }
       }
     }

@@ -7,7 +7,7 @@
         "table": {
           "table_name": "c",
           "access_type": "ALL",
-          "rows": 147614,
+          "rows": 148547,
           "filtered": 100,
           "attached_condition": "c.c_mktsegment = 'BUILDING' and c.c_custkey is not null"
         },
@@ -19,7 +19,7 @@
             "key_length": "5",
             "used_key_parts": ["o_custkey"],
             "ref": ["impro_database.c.c_custkey"],
-            "rows": 1481253,
+            "rows": 1487221,
             "filtered": 100,
             "attached_condition": "o.o_orderdate < DATE'1995-03-15'"
           },
@@ -36,7 +36,7 @@
             "key_length": "9",
             "used_key_parts": ["l_orderkey"],
             "ref": ["impro_database.o.o_orderkey"],
-            "rows": 5784708,
+            "rows": 5081778,
             "filtered": 100,
             "attached_condition": "l.l_shipdate > DATE'1995-03-15'"
           },
