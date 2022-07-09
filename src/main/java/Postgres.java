@@ -10,7 +10,7 @@ public class Postgres implements ExplainInterface{
 
     @Override
     public JsonNode addExplainToQuery(String query) throws SQLException, IOException {
-        query = "EXPLAIN (FORMAT JSON)" + query;
+        query = "EXPLAIN (FORMAT JSON) " + query;
         return getExplainOutput(query);
     }
 
