@@ -6,7 +6,7 @@
       "direction" : "SYNC"
     },
     "nodeName" : "1",
-    "nodeType" : "filesort",
+    "Node_Type" : "filesort",
     "children" : [ {
       "sort_key" : "sum(l.l_extendedprice * (1 - l.l_discount)) desc, o.o_orderdate",
       "children" : [ {
@@ -15,7 +15,7 @@
         "rows" : 148547,
         "filtered" : 100,
         "attached_condition" : "c.c_mktsegment = 'BUILDING' and c.c_custkey is not null",
-        "node_type" : "temporary_table",
+        "Node_Type" : "temporary_table",
         "link" : {
           "name" : "Link node 2.1 to 3.1",
           "nodeName" : "NODE NAME 3.1",
@@ -36,14 +36,14 @@
           "rows" : 1487221,
           "filtered" : 100,
           "attached_condition" : "o.o_orderdate < DATE'1995-03-15'",
-          "node_type" : "table",
+          "Node_Type" : "table",
           "link" : {
             "name" : "Link node 3.2 to 4.1",
             "nodeName" : "NODE NAME 4.1",
             "direction" : "SYNC"
           }
         } ],
-        "node_type" : "block_nl_join1",
+        "Node_Type" : "block_nl_join1",
         "link" : {
           "name" : "Link node 2.1 to 3.1",
           "nodeName" : "NODE NAME 3.1",
@@ -65,14 +65,14 @@
           "rows" : 5081778,
           "filtered" : 100,
           "attached_condition" : "l.l_shipdate > DATE'1995-03-15'",
-          "node_type" : "table",
+          "Node_Type" : "table",
           "link" : {
             "name" : "Link node 3.3 to 4.1",
             "nodeName" : "NODE NAME 4.1",
             "direction" : "SYNC"
           }
         } ],
-        "node_type" : "block_nl_join2",
+        "Node_Type" : "block_nl_join2",
         "link" : {
           "name" : "Link node 2.1 to 3.1",
           "nodeName" : "NODE NAME 3.1",

@@ -62,7 +62,7 @@ public class MariaDB implements ExplainInterface {
         JsonNode plan = tree.get("tree");
         ((ObjectNode) plan).put("link", first_node_link);
         ((ObjectNode) plan).put("nodeName", "1");
-        ((ObjectNode) plan).put("nodeType", "filesort");
+        ((ObjectNode) plan).put("Node_Type", "filesort");
         ((ObjectNode) plan).remove("select_id");
 
         ((ObjectNode) plan).putArray("children");
@@ -75,17 +75,17 @@ public class MariaDB implements ExplainInterface {
         for (int i = 0; i < 3; i++) {
             if (i == 0) {
                 ((ArrayNode) children2).add(plan.get("filesort").get("temporary_table").get("table"));
-                ((ObjectNode) children2.get(i)).put("node_type", "temporary_table");
+                ((ObjectNode) children2.get(i)).put("Node_Type", "temporary_table");
             }
             else {
                 ((ArrayNode) children2).add(plan.get("filesort").get("temporary_table").get("block_nl_join" + Integer.toString(i)));
                 ((ObjectNode) children2.get(i)).putArray("children");
-                ((ObjectNode) children2.get(i)).put("node_type", "block_nl_join" + Integer.toString(i));
+                ((ObjectNode) children2.get(i)).put("Node_Type", "block_nl_join" + Integer.toString(i));
             }
             JsonNode children3 = ((ObjectNode) children2.get(i)).get("children");
             if (i > 0) {
                 ((ArrayNode) children3).add(plan.get("filesort").get("temporary_table").get("block_nl_join" + Integer.toString(i)).get("table"));
-                ((ObjectNode) children3.get(0)).put("node_type", "table");
+                ((ObjectNode) children3.get(0)).put("Node_Type", "table");
                 ((ObjectNode) children2.get(i)).remove("table");
             }
         }
