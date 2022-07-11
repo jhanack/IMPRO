@@ -11,11 +11,11 @@ import java.sql.SQLException;
 
 public class MDBRun {
     public static void main(String[] args) throws IOException, SQLException {
-        Path queryString = Path.of("resources/queries/q2_sf1.txt");
+        Path queryString = Path.of("resources/queries/q5_sf1.txt");
         String query = Files.readString(queryString);
         MariaDB MDBRun = new MariaDB();
         ObjectMapper objectMapper = new ObjectMapper();
         ObjectWriter writer = objectMapper.writer(new DefaultPrettyPrinter());
-        writer.writeValue(new File("resources/IR-JSON-outputs/Q2_MDB.json"), MDBRun.addExplainToQuery(query));
+        writer.writeValue(new File("resources/IR-JSON-outputs/Q5_MDB.json"), MDBRun.addExplainToQuery(query));
     }
 }
