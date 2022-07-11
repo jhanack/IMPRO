@@ -72,7 +72,7 @@ public class MariaDB implements ExplainInterface {
         ((ObjectNode) children.get(0)).putArray("children");
 
         JsonNode children2 = ((ObjectNode) children.get(0)).get("children");
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 5; i++) {
             if (i == 0) {
                 ((ArrayNode) children2).add(plan.get("filesort").get("temporary_table").get("table"));
                 ((ObjectNode) children2.get(i)).put("Node_Type", "temporary_table");
