@@ -1,0 +1,102 @@
+{
+  "query_block": {
+    "select_id": 1,
+    "filesort": {
+      "sort_key": "sum(sf1_lineitem.l_extendedprice * (1 - sf1_lineitem.l_discount)) desc",
+      "temporary_table": {
+        "table": {
+          "table_name": "sf1_supplier",
+          "access_type": "ALL",
+          "rows": 1,
+          "filtered": 100,
+          "attached_condition": "sf1_supplier.s_nationkey is not null and sf1_supplier.s_nationkey is not null and sf1_supplier.s_suppkey is not null"
+        },
+        "block-nl-join": {
+          "table": {
+            "table_name": "sf1_nation",
+            "access_type": "hash_ALL",
+            "key": "#hash#$hj",
+            "key_length": "5",
+            "used_key_parts": ["n_nationkey"],
+            "ref": ["impro_database.sf1_supplier.s_nationkey"],
+            "rows": 1,
+            "filtered": 100
+          },
+          "buffer_type": "flat",
+          "buffer_size": "380",
+          "join_type": "BNLH",
+          "attached_condition": "sf1_nation.n_nationkey = sf1_supplier.s_nationkey and sf1_nation.n_regionkey is not null"
+        },
+        "block-nl-join": {
+          "table": {
+            "table_name": "sf1_region",
+            "access_type": "hash_ALL",
+            "key": "#hash#$hj",
+            "key_length": "5",
+            "used_key_parts": ["r_regionkey"],
+            "ref": ["impro_database.sf1_nation.n_regionkey"],
+            "rows": 1,
+            "filtered": 100,
+            "attached_condition": "sf1_region.r_name = 'ASIA'"
+          },
+          "buffer_type": "incremental",
+          "buffer_size": "1Kb",
+          "join_type": "BNLH",
+          "attached_condition": "sf1_region.r_regionkey = sf1_nation.n_regionkey"
+        },
+        "block-nl-join": {
+          "table": {
+            "table_name": "sf1_customer",
+            "access_type": "hash_ALL",
+            "key": "#hash#$hj",
+            "key_length": "5",
+            "used_key_parts": ["c_nationkey"],
+            "ref": ["impro_database.sf1_supplier.s_nationkey"],
+            "rows": 148547,
+            "filtered": 100
+          },
+          "buffer_type": "incremental",
+          "buffer_size": "1Kb",
+          "join_type": "BNLH",
+          "attached_condition": "sf1_customer.c_nationkey = sf1_supplier.s_nationkey and sf1_customer.c_custkey is not null"
+        },
+        "block-nl-join": {
+          "table": {
+            "table_name": "sf1_orders",
+            "access_type": "hash_ALL",
+            "key": "#hash#$hj",
+            "key_length": "5",
+            "used_key_parts": ["o_custkey"],
+            "ref": ["impro_database.sf1_customer.c_custkey"],
+            "rows": 1487221,
+            "filtered": 100,
+            "attached_condition": "sf1_orders.o_orderdate >= DATE'1994-01-01' and sf1_orders.o_orderdate < <cache>(DATE'1994-01-01' + interval '1' year)"
+          },
+          "buffer_type": "incremental",
+          "buffer_size": "256Kb",
+          "join_type": "BNLH",
+          "attached_condition": "sf1_orders.o_custkey = sf1_customer.c_custkey and sf1_orders.o_orderkey is not null"
+        },
+        "block-nl-join": {
+          "table": {
+            "table_name": "sf1_lineitem",
+            "access_type": "hash_ALL",
+            "key": "#hash#$hj",
+            "key_length": "14",
+            "used_key_parts": ["l_orderkey", "l_suppkey"],
+            "ref": [
+              "impro_database.sf1_orders.o_orderkey",
+              "impro_database.sf1_supplier.s_suppkey"
+            ],
+            "rows": 5081778,
+            "filtered": 100
+          },
+          "buffer_type": "incremental",
+          "buffer_size": "256Kb",
+          "join_type": "BNLH",
+          "attached_condition": "sf1_lineitem.l_orderkey = sf1_orders.o_orderkey and sf1_lineitem.l_suppkey = sf1_supplier.s_suppkey"
+        }
+      }
+    }
+  }
+}

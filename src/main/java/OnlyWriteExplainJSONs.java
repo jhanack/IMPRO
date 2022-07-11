@@ -12,21 +12,19 @@ public class OnlyWriteExplainJSONs {
 
     public static void main(String[] args) throws SQLException, IOException {
 
-        Path queryString = Path.of("resources/queries/q10_sf1.txt");
+        Path queryString = Path.of("resources/queries/q5_sf1.txt");
         String query = Files.readString(queryString);
 
         String queryPG = "EXPLAIN (FORMAT JSON) " + query;
         dbConn1 = DriverManager.getConnection("jdbc:postgresql://localhost:8081/impro_database", "impro_user", "impro_password");
         Statement stmt = dbConn1.createStatement();
-//    ScriptRunner runner = new ScriptRunner(con, [booleanAutoCommit], [booleanStopOnerror]);
-//    runner.runScript(new BufferedReader(new FileReader("test.sql")));
         stmt.execute(queryPG);
         ResultSet resultSet = stmt.getResultSet();
         resultSet.next();
         String retrievedName = resultSet.getString(1);
         System.out.println(retrievedName);
 
-        File file=new File("resources/explain_outputs/Q10_explain_PG.json");
+        File file=new File("resources/explain_outputs/Q5_explain_PG.json");
         file.createNewFile();
         FileWriter fileWriter = new FileWriter(file);
         fileWriter.write(retrievedName);
@@ -44,7 +42,7 @@ public class OnlyWriteExplainJSONs {
         String retrievedName2 = resultSet2.getString(1);
         System.out.println(retrievedName2);
 
-        File file2=new File("resources/explain_outputs/Q10_explain_MDB.json");
+        File file2=new File("resources/explain_outputs/Q5_explain_MDB.json");
         file2.createNewFile();
         FileWriter fileWriter2 = new FileWriter(file2);
         fileWriter2.write(retrievedName2);

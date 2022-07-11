@@ -1,0 +1,330 @@
+[
+  {
+    "Plan": {
+      "Node Type": "Sort",
+      "Parallel Aware": false,
+      "Startup Cost": 11055386.88,
+      "Total Cost": 11055386.88,
+      "Plan Rows": 1,
+      "Plan Width": 270,
+      "Sort Key": ["sf1_supplier.s_acctbal DESC", "sf1_nation.n_name", "sf1_supplier.s_name", "sf1_part.p_partkey"],
+      "Plans": [
+        {
+          "Node Type": "Hash Join",
+          "Parent Relationship": "Outer",
+          "Parallel Aware": false,
+          "Join Type": "Inner",
+          "Startup Cost": 23980.52,
+          "Total Cost": 11055386.87,
+          "Plan Rows": 1,
+          "Plan Width": 270,
+          "Inner Unique": false,
+          "Hash Cond": "((sf1_part.p_partkey = sf1_partsupp.ps_partkey) AND ((SubPlan 1) = sf1_partsupp.ps_supplycost))",
+          "Plans": [
+            {
+              "Node Type": "Seq Scan",
+              "Parent Relationship": "Outer",
+              "Parallel Aware": false,
+              "Relation Name": "sf1_part",
+              "Alias": "sf1_part",
+              "Startup Cost": 0.00,
+              "Total Cost": 7097.00,
+              "Plan Rows": 792,
+              "Plan Width": 30,
+              "Filter": "(((p_type)::text ~~ '%BRASS'::text) AND (p_size = 15))"
+            },
+            {
+              "Node Type": "Hash",
+              "Parent Relationship": "Inner",
+              "Parallel Aware": false,
+              "Startup Cost": 23909.93,
+              "Total Cost": 23909.93,
+              "Plan Rows": 4706,
+              "Plan Width": 250,
+              "Plans": [
+                {
+                  "Node Type": "Gather",
+                  "Parent Relationship": "Outer",
+                  "Parallel Aware": false,
+                  "Startup Cost": 1385.33,
+                  "Total Cost": 23909.93,
+                  "Plan Rows": 4706,
+                  "Plan Width": 250,
+                  "Workers Planned": 2,
+                  "Single Copy": false,
+                  "Plans": [
+                    {
+                      "Node Type": "Hash Join",
+                      "Parent Relationship": "Outer",
+                      "Parallel Aware": false,
+                      "Join Type": "Inner",
+                      "Startup Cost": 385.32,
+                      "Total Cost": 22439.33,
+                      "Plan Rows": 1961,
+                      "Plan Width": 250,
+                      "Inner Unique": false,
+                      "Hash Cond": "(sf1_partsupp.ps_suppkey = sf1_supplier.s_suppkey)",
+                      "Plans": [
+                        {
+                          "Node Type": "Seq Scan",
+                          "Parent Relationship": "Outer",
+                          "Parallel Aware": true,
+                          "Relation Name": "sf1_partsupp",
+                          "Alias": "sf1_partsupp",
+                          "Startup Cost": 0.00,
+                          "Total Cost": 20784.33,
+                          "Plan Rows": 333333,
+                          "Plan Width": 14
+                        },
+                        {
+                          "Node Type": "Hash",
+                          "Parent Relationship": "Inner",
+                          "Parallel Aware": false,
+                          "Startup Cost": 384.59,
+                          "Total Cost": 384.59,
+                          "Plan Rows": 59,
+                          "Plan Width": 244,
+                          "Plans": [
+                            {
+                              "Node Type": "Hash Join",
+                              "Parent Relationship": "Outer",
+                              "Parallel Aware": false,
+                              "Join Type": "Inner",
+                              "Startup Cost": 24.50,
+                              "Total Cost": 384.59,
+                              "Plan Rows": 59,
+                              "Plan Width": 244,
+                              "Inner Unique": false,
+                              "Hash Cond": "(sf1_supplier.s_nationkey = sf1_nation.n_nationkey)",
+                              "Plans": [
+                                {
+                                  "Node Type": "Seq Scan",
+                                  "Parent Relationship": "Outer",
+                                  "Parallel Aware": false,
+                                  "Relation Name": "sf1_supplier",
+                                  "Alias": "sf1_supplier",
+                                  "Startup Cost": 0.00,
+                                  "Total Cost": 322.00,
+                                  "Plan Rows": 10000,
+                                  "Plan Width": 144
+                                },
+                                {
+                                  "Node Type": "Hash",
+                                  "Parent Relationship": "Inner",
+                                  "Parallel Aware": false,
+                                  "Startup Cost": 24.48,
+                                  "Total Cost": 24.48,
+                                  "Plan Rows": 1,
+                                  "Plan Width": 108,
+                                  "Plans": [
+                                    {
+                                      "Node Type": "Hash Join",
+                                      "Parent Relationship": "Outer",
+                                      "Parallel Aware": false,
+                                      "Join Type": "Inner",
+                                      "Startup Cost": 12.14,
+                                      "Total Cost": 24.48,
+                                      "Plan Rows": 1,
+                                      "Plan Width": 108,
+                                      "Inner Unique": false,
+                                      "Hash Cond": "(sf1_nation.n_regionkey = sf1_region.r_regionkey)",
+                                      "Plans": [
+                                        {
+                                          "Node Type": "Seq Scan",
+                                          "Parent Relationship": "Outer",
+                                          "Parallel Aware": false,
+                                          "Relation Name": "sf1_nation",
+                                          "Alias": "sf1_nation",
+                                          "Startup Cost": 0.00,
+                                          "Total Cost": 11.70,
+                                          "Plan Rows": 170,
+                                          "Plan Width": 112
+                                        },
+                                        {
+                                          "Node Type": "Hash",
+                                          "Parent Relationship": "Inner",
+                                          "Parallel Aware": false,
+                                          "Startup Cost": 12.12,
+                                          "Total Cost": 12.12,
+                                          "Plan Rows": 1,
+                                          "Plan Width": 4,
+                                          "Plans": [
+                                            {
+                                              "Node Type": "Seq Scan",
+                                              "Parent Relationship": "Outer",
+                                              "Parallel Aware": false,
+                                              "Relation Name": "sf1_region",
+                                              "Alias": "sf1_region",
+                                              "Startup Cost": 0.00,
+                                              "Total Cost": 12.12,
+                                              "Plan Rows": 1,
+                                              "Plan Width": 4,
+                                              "Filter": "(r_name = 'EUROPE'::bpchar)"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Node Type": "Aggregate",
+              "Strategy": "Plain",
+              "Partial Mode": "Simple",
+              "Parent Relationship": "SubPlan",
+              "Subplan Name": "SubPlan 1",
+              "Parallel Aware": false,
+              "Startup Cost": 27839.14,
+              "Total Cost": 27839.15,
+              "Plan Rows": 1,
+              "Plan Width": 32,
+              "Plans": [
+                {
+                  "Node Type": "Nested Loop",
+                  "Parent Relationship": "Outer",
+                  "Parallel Aware": false,
+                  "Join Type": "Inner",
+                  "Startup Cost": 24.50,
+                  "Total Cost": 27839.14,
+                  "Plan Rows": 1,
+                  "Plan Width": 6,
+                  "Inner Unique": false,
+                  "Join Filter": "(sf1_supplier_1.s_suppkey = sf1_partsupp_1.ps_suppkey)",
+                  "Plans": [
+                    {
+                      "Node Type": "Hash Join",
+                      "Parent Relationship": "Outer",
+                      "Parallel Aware": false,
+                      "Join Type": "Inner",
+                      "Startup Cost": 24.50,
+                      "Total Cost": 384.59,
+                      "Plan Rows": 59,
+                      "Plan Width": 4,
+                      "Inner Unique": false,
+                      "Hash Cond": "(sf1_supplier_1.s_nationkey = sf1_nation_1.n_nationkey)",
+                      "Plans": [
+                        {
+                          "Node Type": "Seq Scan",
+                          "Parent Relationship": "Outer",
+                          "Parallel Aware": false,
+                          "Relation Name": "sf1_supplier",
+                          "Alias": "sf1_supplier_1",
+                          "Startup Cost": 0.00,
+                          "Total Cost": 322.00,
+                          "Plan Rows": 10000,
+                          "Plan Width": 8
+                        },
+                        {
+                          "Node Type": "Hash",
+                          "Parent Relationship": "Inner",
+                          "Parallel Aware": false,
+                          "Startup Cost": 24.48,
+                          "Total Cost": 24.48,
+                          "Plan Rows": 1,
+                          "Plan Width": 4,
+                          "Plans": [
+                            {
+                              "Node Type": "Hash Join",
+                              "Parent Relationship": "Outer",
+                              "Parallel Aware": false,
+                              "Join Type": "Inner",
+                              "Startup Cost": 12.14,
+                              "Total Cost": 24.48,
+                              "Plan Rows": 1,
+                              "Plan Width": 4,
+                              "Inner Unique": false,
+                              "Hash Cond": "(sf1_nation_1.n_regionkey = sf1_region_1.r_regionkey)",
+                              "Plans": [
+                                {
+                                  "Node Type": "Seq Scan",
+                                  "Parent Relationship": "Outer",
+                                  "Parallel Aware": false,
+                                  "Relation Name": "sf1_nation",
+                                  "Alias": "sf1_nation_1",
+                                  "Startup Cost": 0.00,
+                                  "Total Cost": 11.70,
+                                  "Plan Rows": 170,
+                                  "Plan Width": 8
+                                },
+                                {
+                                  "Node Type": "Hash",
+                                  "Parent Relationship": "Inner",
+                                  "Parallel Aware": false,
+                                  "Startup Cost": 12.12,
+                                  "Total Cost": 12.12,
+                                  "Plan Rows": 1,
+                                  "Plan Width": 4,
+                                  "Plans": [
+                                    {
+                                      "Node Type": "Seq Scan",
+                                      "Parent Relationship": "Outer",
+                                      "Parallel Aware": false,
+                                      "Relation Name": "sf1_region",
+                                      "Alias": "sf1_region_1",
+                                      "Startup Cost": 0.00,
+                                      "Total Cost": 12.12,
+                                      "Plan Rows": 1,
+                                      "Plan Width": 4,
+                                      "Filter": "(r_name = 'EUROPE'::bpchar)"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "Node Type": "Materialize",
+                      "Parent Relationship": "Inner",
+                      "Parallel Aware": false,
+                      "Startup Cost": 0.00,
+                      "Total Cost": 27451.02,
+                      "Plan Rows": 4,
+                      "Plan Width": 10,
+                      "Plans": [
+                        {
+                          "Node Type": "Seq Scan",
+                          "Parent Relationship": "Outer",
+                          "Parallel Aware": false,
+                          "Relation Name": "sf1_partsupp",
+                          "Alias": "sf1_partsupp_1",
+                          "Startup Cost": 0.00,
+                          "Total Cost": 27451.00,
+                          "Plan Rows": 4,
+                          "Plan Width": 10,
+                          "Filter": "(sf1_part.p_partkey = ps_partkey)"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "JIT": {
+      "Worker Number": -1,
+      "Functions": 78,
+      "Options": {
+        "Inlining": true,
+        "Optimization": true,
+        "Expressions": true,
+        "Deforming": true
+      }
+    }
+  }
+]

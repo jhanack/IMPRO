@@ -1,0 +1,85 @@
+{
+  "tree" : {
+    "link" : {
+      "name" : "Link NODE NAME 1",
+      "nodeName" : "NODE NAME 1",
+      "direction" : "SYNC"
+    },
+    "nodeName" : "1",
+    "Node_Type" : "filesort",
+    "children" : [ {
+      "sort_key" : "sf1_supplier.s_acctbal desc, sf1_nation.n_name, sf1_supplier.s_name, sf1_part.p_partkey",
+      "children" : [ {
+        "table_name" : "sf1_part",
+        "access_type" : "ALL",
+        "rows" : 1,
+        "filtered" : 100,
+        "attached_condition" : "sf1_part.p_size = 15 and sf1_part.p_type like '%BRASS' and sf1_part.p_partkey is not null",
+        "Node_Type" : "temporary_table",
+        "link" : {
+          "name" : "Link node 2.1 to 3.1",
+          "nodeName" : "NODE NAME 3.1",
+          "direction" : "SYNC"
+        }
+      }, {
+        "buffer_type" : "flat",
+        "buffer_size" : "2Kb",
+        "join_type" : "BNL",
+        "attached_condition" : "sf1_supplier.s_suppkey is not null and sf1_supplier.s_nationkey is not null",
+        "children" : [ {
+          "table_name" : "sf1_supplier",
+          "access_type" : "ALL",
+          "rows" : 1,
+          "filtered" : 100,
+          "Node_Type" : "table",
+          "link" : {
+            "name" : "Link node 3.2 to 4.1",
+            "nodeName" : "NODE NAME 4.1",
+            "direction" : "SYNC"
+          }
+        } ],
+        "Node_Type" : "block_nl_join1",
+        "link" : {
+          "name" : "Link node 2.1 to 3.1",
+          "nodeName" : "NODE NAME 3.1",
+          "direction" : "SYNC"
+        },
+        "nodeName" : "3.2"
+      }, {
+        "buffer_type" : "incremental",
+        "buffer_size" : "8Kb",
+        "join_type" : "BNLH",
+        "attached_condition" : "sf1_partsupp.ps_partkey = sf1_part.p_partkey and sf1_partsupp.ps_suppkey = sf1_supplier.s_suppkey and sf1_partsupp.ps_supplycost = (subquery#2)",
+        "children" : [ {
+          "table_name" : "sf1_partsupp",
+          "access_type" : "hash_ALL",
+          "key" : "#hash#$hj",
+          "key_length" : "16",
+          "used_key_parts" : [ "ps_partkey", "ps_supplycost", "ps_suppkey" ],
+          "ref" : [ "impro_database.sf1_part.p_partkey", "func", "impro_database.sf1_supplier.s_suppkey" ],
+          "rows" : 1,
+          "filtered" : 100,
+          "Node_Type" : "table",
+          "link" : {
+            "name" : "Link node 3.3 to 4.1",
+            "nodeName" : "NODE NAME 4.1",
+            "direction" : "SYNC"
+          }
+        } ],
+        "Node_Type" : "block_nl_join2",
+        "link" : {
+          "name" : "Link node 2.1 to 3.1",
+          "nodeName" : "NODE NAME 3.1",
+          "direction" : "SYNC"
+        },
+        "nodeName" : "3.3"
+      } ],
+      "link" : {
+        "name" : "Link node 1 to 2.1",
+        "nodeName" : "NODE NAME 2.1",
+        "direction" : "SYNC"
+      },
+      "nodeName" : "2.1"
+    } ]
+  }
+}
