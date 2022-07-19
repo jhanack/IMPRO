@@ -57,7 +57,7 @@ public class MariaDB implements ExplainInterface {
                 "\t\t},";
 
         String subqueries_node_string = "{\n" +
-                "\t\t\t\"node_Type\": \"subqueries\"\n" +
+                "\t\t\t\"Node_Type\": \"subqueries\"\n" +
                 "\t\t},";
 
         ObjectMapper Mapper = new ObjectMapper();
@@ -81,7 +81,6 @@ public class MariaDB implements ExplainInterface {
         for (int i = 0; i < plan.get("filesort").get("temporary_table").size(); i++) {
             //System.out.println(plan.get("filesort").get("temporary_table").size());
             if (i == 0) {
-
                 ((ArrayNode) children2).add(plan.get("filesort").get("temporary_table").get("table"));
                 ((ObjectNode) children2.get(i)).put("Node_Type", "temporary_table");
             } else {
