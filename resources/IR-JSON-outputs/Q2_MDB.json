@@ -9,6 +9,7 @@
     "Node_Type" : "filesort",
     "children" : [ {
       "sort_key" : "sf1_supplier.s_acctbal desc, sf1_nation.n_name, sf1_supplier.s_name, sf1_part.p_partkey",
+      "Node_Type" : "Sort",
       "children" : [ {
         "table_name" : "sf1_part",
         "access_type" : "ALL",
@@ -131,7 +132,7 @@
         },
         "nodeName" : "3.5"
       }, {
-        "node_Type" : "subqueries",
+        "Node_Type" : "subqueries",
         "children" : [ {
           "table_name" : "sf1_partsupp",
           "access_type" : "ALL",

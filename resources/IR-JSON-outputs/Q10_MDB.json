@@ -9,6 +9,7 @@
     "Node_Type" : "filesort",
     "children" : [ {
       "sort_key" : "sum(sf1_lineitem.l_extendedprice * (1 - sf1_lineitem.l_discount)) desc",
+      "Node_Type" : "Sort",
       "children" : [ {
         "table_name" : "sf1_nation",
         "access_type" : "ALL",
