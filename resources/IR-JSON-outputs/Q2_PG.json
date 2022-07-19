@@ -2,8 +2,8 @@
   "tree" : {
     "Node_Type" : "Sort",
     "Parallel_Aware" : false,
-    "Startup_Cost" : 1.225247097E7,
-    "Total_Cost" : 1.225247098E7,
+    "Startup_Cost" : 1.105538688E7,
+    "Total_Cost" : 1.105538688E7,
     "Plan_Rows" : 1,
     "Plan_Width" : 270,
     "Sort_Key" : [ "sf1_supplier.s_acctbal DESC", "sf1_nation.n_name", "sf1_supplier.s_name", "sf1_part.p_partkey" ],
@@ -13,7 +13,7 @@
       "Parallel_Aware" : false,
       "Join_Type" : "Inner",
       "Startup_Cost" : 23980.52,
-      "Total_Cost" : 1.225247096E7,
+      "Total_Cost" : 1.105538687E7,
       "Plan_Rows" : 1,
       "Plan_Width" : 270,
       "Inner_Unique" : false,
@@ -26,7 +26,7 @@
         "Alias" : "sf1_part",
         "Startup_Cost" : 0.0,
         "Total_Cost" : 7097.0,
-        "Plan_Rows" : 878,
+        "Plan_Rows" : 792,
         "Plan_Width" : 30,
         "Filter" : "(((p_type)::text ~~ '%BRASS'::text) AND (p_size = 15))",
         "link" : {

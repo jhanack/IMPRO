@@ -9,6 +9,7 @@
     "Node_Type" : "filesort",
     "children" : [ {
       "sort_key" : "sum(l.l_extendedprice * (1 - l.l_discount)) desc, o.o_orderdate",
+      "Node_Type" : "Sort",
       "children" : [ {
         "table_name" : "c",
         "access_type" : "ALL",

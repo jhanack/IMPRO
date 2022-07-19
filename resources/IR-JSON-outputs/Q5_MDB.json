@@ -9,6 +9,7 @@
     "Node_Type" : "filesort",
     "children" : [ {
       "sort_key" : "sum(sf1_lineitem.l_extendedprice * (1 - sf1_lineitem.l_discount)) desc",
+      "Node_Type" : "Sort",
       "children" : [ {
         "table_name" : "sf1_supplier",
         "access_type" : "ALL",
@@ -135,6 +136,34 @@
           "direction" : "SYNC"
         },
         "nodeName" : "3.5"
+      }, {
+        "buffer_type" : "incremental",
+        "buffer_size" : "256Kb",
+        "join_type" : "BNLH",
+        "attached_condition" : "sf1_lineitem.l_orderkey = sf1_orders.o_orderkey and sf1_lineitem.l_suppkey = sf1_supplier.s_suppkey",
+        "children" : [ {
+          "table_name" : "sf1_lineitem",
+          "access_type" : "hash_ALL",
+          "key" : "#hash#$hj",
+          "key_length" : "14",
+          "used_key_parts" : [ "l_orderkey", "l_suppkey" ],
+          "ref" : [ "impro_database.sf1_orders.o_orderkey", "impro_database.sf1_supplier.s_suppkey" ],
+          "rows" : 5081778,
+          "filtered" : 100,
+          "Node_Type" : "table",
+          "link" : {
+            "name" : "Link node 3.6 to 4.1",
+            "nodeName" : "NODE NAME 4.1",
+            "direction" : "SYNC"
+          }
+        } ],
+        "Node_Type" : "block_nl_join5",
+        "link" : {
+          "name" : "Link node 2.1 to 3.1",
+          "nodeName" : "NODE NAME 3.1",
+          "direction" : "SYNC"
+        },
+        "nodeName" : "3.6"
       } ],
       "link" : {
         "name" : "Link node 1 to 2.1",
