@@ -75,6 +75,7 @@ public class MariaDB implements ExplainInterface {
         JsonNode children = ((ObjectNode) plan).get("children");
         ((ArrayNode) children).add(first_node);
         ((ObjectNode) children.get(0)).set("sort_key", ((ObjectNode) plan).get("filesort").get("sort_key"));
+        ((ObjectNode) children.get(0)).put("Node_Type", "Sort");
         ((ObjectNode) children.get(0)).putArray("children");
 
         JsonNode children2 = ((ObjectNode) children.get(0)).get("children");
