@@ -1,7 +1,7 @@
 {
 	"tree": {
 		"nodeName": "NODE NAME 1",
-		"name": "Sort",
+		"name": "Sort (//Possible Node Types = Filter, Join, Sort, Limit, Aggregation)",
 		"Sort Key(s)": "sum(l.l_extendedprice * (1 - l.l_discount)) desc, o.o_orderdate",
 		"link": {
 			"name": "Link node 1 to 2.1",

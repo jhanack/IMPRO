@@ -1,0 +1,7 @@
+Possible Node Types = Filter, Join, Sort, Limit, Aggregation
+
+
+if "Type" = any kind of join
+    "Join Type" = e.g. Hash Join, Block-Nested-Loop-Hash-Join etc.
+if "Type" = Aggregation
+    "Join Type" = e.g. Hash Join, Block-Nested-Loop-Hash-Join etc.

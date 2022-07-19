@@ -1,7 +1,7 @@
 {
 	"tree": {
 		"nodeName": "NODE NAME 1",
-		"name": "Limit",
+		"name": "Limit (//Possible Node Types = Filter, Join, Sort, Limit, Aggregation)",
 		"Rows": "xx",
 		"link": {
 			"name": "Link NODE NAME 1",

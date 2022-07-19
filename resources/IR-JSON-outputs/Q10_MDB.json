@@ -1,0 +1,119 @@
+{
+  "tree" : {
+    "link" : {
+      "name" : "Link NODE NAME 1",
+      "nodeName" : "NODE NAME 1",
+      "direction" : "SYNC"
+    },
+    "nodeName" : "1",
+    "Node_Type" : "filesort",
+    "children" : [ {
+      "sort_key" : "sum(sf1_lineitem.l_extendedprice * (1 - sf1_lineitem.l_discount)) desc",
+      "children" : [ {
+        "table_name" : "sf1_nation",
+        "access_type" : "ALL",
+        "rows" : 1,
+        "filtered" : 100,
+        "attached_condition" : "sf1_nation.n_nationkey is not null",
+        "Node_Type" : "temporary_table",
+        "link" : {
+          "name" : "Link node 2.1 to 3.1",
+          "nodeName" : "NODE NAME 3.1",
+          "direction" : "SYNC"
+        }
+      }, {
+        "buffer_type" : "flat",
+        "buffer_size" : "1Kb",
+        "join_type" : "BNLH",
+        "attached_condition" : "sf1_customer.c_nationkey = sf1_nation.n_nationkey and sf1_customer.c_custkey is not null",
+        "children" : [ {
+          "table_name" : "sf1_customer",
+          "access_type" : "hash_ALL",
+          "key" : "#hash#$hj",
+          "key_length" : "5",
+          "used_key_parts" : [ "c_nationkey" ],
+          "ref" : [ "impro_database.sf1_nation.n_nationkey" ],
+          "rows" : 148547,
+          "filtered" : 100,
+          "Node_Type" : "table",
+          "link" : {
+            "name" : "Link node 3.2 to 4.1",
+            "nodeName" : "NODE NAME 4.1",
+            "direction" : "SYNC"
+          }
+        } ],
+        "Node_Type" : "block_nl_join1",
+        "link" : {
+          "name" : "Link node 2.1 to 3.1",
+          "nodeName" : "NODE NAME 3.1",
+          "direction" : "SYNC"
+        },
+        "nodeName" : "3.2"
+      }, {
+        "buffer_type" : "incremental",
+        "buffer_size" : "256Kb",
+        "join_type" : "BNLH",
+        "attached_condition" : "sf1_orders.o_custkey = sf1_customer.c_custkey and sf1_orders.o_orderkey is not null",
+        "children" : [ {
+          "table_name" : "sf1_orders",
+          "access_type" : "hash_ALL",
+          "key" : "#hash#$hj",
+          "key_length" : "5",
+          "used_key_parts" : [ "o_custkey" ],
+          "ref" : [ "impro_database.sf1_customer.c_custkey" ],
+          "rows" : 1487221,
+          "filtered" : 100,
+          "attached_condition" : "sf1_orders.o_orderdate >= DATE'1993-10-01' and sf1_orders.o_orderdate < DATE'1994-01-01'",
+          "Node_Type" : "table",
+          "link" : {
+            "name" : "Link node 3.3 to 4.1",
+            "nodeName" : "NODE NAME 4.1",
+            "direction" : "SYNC"
+          }
+        } ],
+        "Node_Type" : "block_nl_join2",
+        "link" : {
+          "name" : "Link node 2.1 to 3.1",
+          "nodeName" : "NODE NAME 3.1",
+          "direction" : "SYNC"
+        },
+        "nodeName" : "3.3"
+      }, {
+        "buffer_type" : "incremental",
+        "buffer_size" : "256Kb",
+        "join_type" : "BNLH",
+        "attached_condition" : "sf1_lineitem.l_orderkey = sf1_orders.o_orderkey",
+        "children" : [ {
+          "table_name" : "sf1_lineitem",
+          "access_type" : "hash_ALL",
+          "key" : "#hash#$hj",
+          "key_length" : "9",
+          "used_key_parts" : [ "l_orderkey" ],
+          "ref" : [ "impro_database.sf1_orders.o_orderkey" ],
+          "rows" : 5081778,
+          "filtered" : 100,
+          "attached_condition" : "sf1_lineitem.l_returnflag = 'R'",
+          "Node_Type" : "table",
+          "link" : {
+            "name" : "Link node 3.4 to 4.1",
+            "nodeName" : "NODE NAME 4.1",
+            "direction" : "SYNC"
+          }
+        } ],
+        "Node_Type" : "block_nl_join3",
+        "link" : {
+          "name" : "Link node 2.1 to 3.1",
+          "nodeName" : "NODE NAME 3.1",
+          "direction" : "SYNC"
+        },
+        "nodeName" : "3.4"
+      } ],
+      "link" : {
+        "name" : "Link node 1 to 2.1",
+        "nodeName" : "NODE NAME 2.1",
+        "direction" : "SYNC"
+      },
+      "nodeName" : "2.1"
+    } ]
+  }
+}

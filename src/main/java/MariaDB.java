@@ -37,9 +37,11 @@ public class MariaDB implements ExplainInterface {
         originalExplainString = originalExplainString.replaceFirst("block-nl-join", "block_nl_join4");
         originalExplainString = originalExplainString.replaceFirst("block-nl-join", "block_nl_join5");
         originalExplainString = originalExplainString.replaceFirst("block-nl-join", "block_nl_join6");
-        //originalExplainString = originalExplainString.replaceAll("block-nl-join ", "link");
-        //originalExplainString = originalExplainString.replaceAll("sort_key", "Sort Key(s)");
-        //originalExplainString = originalExplainString.replaceAll("temporary_table" + ":  ", "children"+" : [");
+        originalExplainString = originalExplainString.replaceFirst("block-nl-join", "block_nl_join7");
+        originalExplainString = originalExplainString.replaceFirst("block-nl-join", "block_nl_join8");
+        originalExplainString = originalExplainString.replaceFirst("block-nl-join", "block_nl_join9");
+        originalExplainString = originalExplainString.replaceFirst("block-nl-join", "block_nl_join10");
+        //System.out.println(originalExplainString);
         return processExplainNodes(originalExplainString);
     }
 
@@ -54,10 +56,14 @@ public class MariaDB implements ExplainInterface {
                 "\t\t\t\"sort_key\": \"empty\"\n" +
                 "\t\t},";
 
+        String subqueries_node_string = "{\n" +
+                "\t\t\t\"node_Type\": \"subqueries\"\n" +
+                "\t\t},";
+
         ObjectMapper Mapper = new ObjectMapper();
         JsonNode first_node_link = Mapper.readValue(first_link_string, JsonNode.class);
         JsonNode first_node = Mapper.readValue(first_node_string, JsonNode.class);
-        JsonNode second_node = Mapper.readValue(first_node_string, JsonNode.class);
+        JsonNode subqueries_node = Mapper.readValue(subqueries_node_string, JsonNode.class);
         JsonNode tree = Mapper.readValue(originalExplainString, JsonNode.class);
         JsonNode plan = tree.get("tree");
         ((ObjectNode) plan).put("link", first_node_link);
@@ -72,21 +78,47 @@ public class MariaDB implements ExplainInterface {
         ((ObjectNode) children.get(0)).putArray("children");
 
         JsonNode children2 = ((ObjectNode) children.get(0)).get("children");
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < plan.get("filesort").get("temporary_table").size(); i++) {
+            //System.out.println(plan.get("filesort").get("temporary_table").size());
             if (i == 0) {
+
                 ((ArrayNode) children2).add(plan.get("filesort").get("temporary_table").get("table"));
                 ((ObjectNode) children2.get(i)).put("Node_Type", "temporary_table");
-            }
-            else {
+            } else {
+                if (plan.get("filesort").get("temporary_table").get("block_nl_join" + Integer.toString(i)) == null) {
+                    ((ObjectNode) plan.get("filesort").get("temporary_table").get("subqueries").get(0).get("expression_cache").get("query_block")).remove("select_id");
+                    ((ArrayNode) children2).add(subqueries_node);
+                    ((ObjectNode) children2.get(i)).putArray("children");
+                    JsonNode children3 = ((ObjectNode) children2.get(i)).get("children");
+                    for (int j = 0; j < plan.get("filesort").get("temporary_table").get("subqueries").get(0).get("expression_cache").get("query_block").size(); j++) {
+                        //System.out.println(plan.get("filesort").get("temporary_table").get("subqueries").get(0).get("expression_cache").get("query_block").size());
+                        if (j == 0) {
+                            ((ArrayNode) children3).add(plan.get("filesort").get("temporary_table").get("subqueries").get(0).get("expression_cache").get("query_block")
+                                    .get("table"));
+                            ((ObjectNode) children3.get(j)).put("Node_Type", "table");
+                        } else {
+                            ((ArrayNode) children3).add(plan.get("filesort").get("temporary_table").get("subqueries").get(0).get("expression_cache").get("query_block")
+                                    .get("block_nl_join" + Integer.toString(i+j-1)));
+                            ((ObjectNode) children3.get(j)).putArray("children");
+                            ((ObjectNode) children3.get(j)).put("Node_Type", "block_nl_join" + Integer.toString(i+j-1));
+                            JsonNode children4 = ((ObjectNode) children3.get(j)).get("children");
+                            ((ArrayNode) children4).add(plan.get("filesort").get("temporary_table").get("subqueries").get(0).get("expression_cache").get("query_block")
+                                    .get("block_nl_join" + Integer.toString(i+j-1)).get("table"));
+                            ((ObjectNode) children4.get(0)).put("Node_Type", "table");
+                            ((ObjectNode) children3.get(j)).remove("table");
+                        }
+                    }
+
+                    continue;
+                }
                 ((ArrayNode) children2).add(plan.get("filesort").get("temporary_table").get("block_nl_join" + Integer.toString(i)));
                 ((ObjectNode) children2.get(i)).putArray("children");
                 ((ObjectNode) children2.get(i)).put("Node_Type", "block_nl_join" + Integer.toString(i));
-            }
-            JsonNode children3 = ((ObjectNode) children2.get(i)).get("children");
-            if (i > 0) {
-                ((ArrayNode) children3).add(plan.get("filesort").get("temporary_table").get("block_nl_join" + Integer.toString(i)).get("table"));
-                ((ObjectNode) children3.get(0)).put("Node_Type", "table");
+                JsonNode children5 = ((ObjectNode) children2.get(i)).get("children");
+                ((ArrayNode) children5).add(plan.get("filesort").get("temporary_table").get("block_nl_join" + Integer.toString(i)).get("table"));
+                ((ObjectNode) children5.get(0)).put("Node_Type", "table");
                 ((ObjectNode) children2.get(i)).remove("table");
+
             }
         }
         ((ObjectNode) plan).remove("filesort");
