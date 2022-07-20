@@ -10,6 +10,7 @@
     <script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <script src="https://d3js.org/d3.v3.min.js" type="text/javascript"></script>
     <script src="tree-boxes.js" type="text/javascript"></script>
+    <script src="tree-boxes-MDB.js" type="text/javascript"></script>
 
 
     <script>
@@ -42,23 +43,21 @@
 
 
 
-    <div class="container" >
-        <ct-visualization id="tree-container"></ct-visualization>
-        <script>
-            d3.json("test_output.json", function(error, json) {
-                treeBoxes('', json.tree);
-            });
-        </script>
-    </div>
+<div class="container" >
+  <ct-visualization id="tree-container"></ct-visualization>
+  <script>
+      d3.json("Q4_PG.json", function(error, json) {
+          treeBoxes('', json.tree);
+      });
+  </script>
+<div class="container" >
+  <ct-visualization id="tree-container"></ct-visualization>
+  <script>
+      d3.json("Q4_MDB.json", function(error, json) {
+          treeBoxesMDB('', json.tree);
+      });
+  </script>
 
-    <div class="container" >
-      <ct-visualization id="tree-container"></ct-visualization>
-      <script>
-          d3.json("data-PG", function(error, json) {
-              treeBoxes('', json.tree);
-          });
-      </script>
   </div>
-   
 </body>
 </html>

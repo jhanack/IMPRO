@@ -1,0 +1,343 @@
+{
+  "tree" : {
+    "Node_Type" : "Sort",
+    "Parallel_Aware" : false,
+    "Startup_Cost" : 192475.18,
+    "Total_Cost" : 192475.6,
+    "Plan_Rows" : 170,
+    "Plan_Width" : 136,
+    "Sort_Key" : [ "(sum((sf1_lineitem.l_extendedprice * ('1'::numeric - sf1_lineitem.l_discount)))) DESC" ],
+    "children" : [ {
+      "Node_Type" : "Aggregate",
+      "Strategy" : "Sorted",
+      "Partial_Mode" : "Finalize",
+      "Parent_Relationship" : "Outer",
+      "Parallel_Aware" : false,
+      "Startup_Cost" : 192442.65,
+      "Total_Cost" : 192468.88,
+      "Plan_Rows" : 170,
+      "Plan_Width" : 136,
+      "Group_Key" : [ "sf1_nation.n_name" ],
+      "children" : [ {
+        "Node_Type" : "Gather Merge",
+        "Parent_Relationship" : "Outer",
+        "Parallel_Aware" : false,
+        "Startup_Cost" : 192442.65,
+        "Total_Cost" : 192465.42,
+        "Plan_Rows" : 178,
+        "Plan_Width" : 136,
+        "Workers_Planned" : 2,
+        "children" : [ {
+          "Node_Type" : "Aggregate",
+          "Strategy" : "Sorted",
+          "Partial_Mode" : "Partial",
+          "Parent_Relationship" : "Outer",
+          "Parallel_Aware" : false,
+          "Startup_Cost" : 191442.62,
+          "Total_Cost" : 191444.85,
+          "Plan_Rows" : 89,
+          "Plan_Width" : 136,
+          "Group_Key" : [ "sf1_nation.n_name" ],
+          "children" : [ {
+            "Node_Type" : "Sort",
+            "Parent_Relationship" : "Outer",
+            "Parallel_Aware" : false,
+            "Startup_Cost" : 191442.62,
+            "Total_Cost" : 191442.85,
+            "Plan_Rows" : 89,
+            "Plan_Width" : 116,
+            "Sort_Key" : [ "sf1_nation.n_name" ],
+            "children" : [ {
+              "Node_Type" : "Hash Join",
+              "Parent_Relationship" : "Outer",
+              "Parallel_Aware" : false,
+              "Join_Type" : "Inner",
+              "Startup_Cost" : 41495.82,
+              "Total_Cost" : 191439.74,
+              "Plan_Rows" : 89,
+              "Plan_Width" : 116,
+              "Inner_Unique" : false,
+              "Hash_Condition" : "((sf1_lineitem.l_suppkey = sf1_supplier.s_suppkey) AND (sf1_customer.c_nationkey = sf1_supplier.s_nationkey))",
+              "children" : [ {
+                "Node_Type" : "Hash Join",
+                "Parent_Relationship" : "Outer",
+                "Parallel_Aware" : true,
+                "Join_Type" : "Inner",
+                "Startup_Cost" : 41023.82,
+                "Total_Cost" : 190950.22,
+                "Plan_Rows" : 2218,
+                "Plan_Width" : 128,
+                "Inner_Unique" : false,
+                "Hash_Condition" : "(sf1_lineitem.l_orderkey = sf1_orders.o_orderkey)",
+                "children" : [ {
+                  "Node_Type" : "Seq Scan",
+                  "Parent_Relationship" : "Outer",
+                  "Parallel_Aware" : true,
+                  "Relation_Name" : "sf1_lineitem",
+                  "Alias" : "sf1_lineitem",
+                  "Startup_Cost" : 0.0,
+                  "Total_Cost" : 140539.65,
+                  "Plan_Rows" : 2500665,
+                  "Plan_Width" : 24,
+                  "link" : {
+                    "name" : "Link node 7.1 to 8.1",
+                    "nodeName" : "NODE NAME 8.1",
+                    "direction" : "SYNC"
+                  }
+                }, {
+                  "Node_Type" : "Hash",
+                  "Parent_Relationship" : "Inner",
+                  "Parallel_Aware" : true,
+                  "Startup_Cost" : 41016.88,
+                  "Total_Cost" : 41016.88,
+                  "Plan_Rows" : 555,
+                  "Plan_Width" : 120,
+                  "children" : [ {
+                    "Node_Type" : "Hash Join",
+                    "Parent_Relationship" : "Outer",
+                    "Parallel_Aware" : true,
+                    "Join_Type" : "Inner",
+                    "Startup_Cost" : 4477.15,
+                    "Total_Cost" : 41016.88,
+                    "Plan_Rows" : 555,
+                    "Plan_Width" : 120,
+                    "Inner_Unique" : false,
+                    "Hash_Condition" : "(sf1_orders.o_custkey = sf1_customer.c_custkey)",
+                    "children" : [ {
+                      "Node_Type" : "Seq Scan",
+                      "Parent_Relationship" : "Outer",
+                      "Parallel_Aware" : true,
+                      "Relation_Name" : "sf1_orders",
+                      "Alias" : "sf1_orders",
+                      "Startup_Cost" : 0.0,
+                      "Total_Cost" : 36184.0,
+                      "Plan_Rows" : 94245,
+                      "Plan_Width" : 12,
+                      "Filter" : "((o_orderdate >= '1994-01-01'::date) AND (o_orderdate < '1995-01-01 00:00:00'::timestamp without time zone))",
+                      "link" : {
+                        "name" : "Link node 9.1 to 10.1",
+                        "nodeName" : "NODE NAME 10.1",
+                        "direction" : "SYNC"
+                      }
+                    }, {
+                      "Node_Type" : "Hash",
+                      "Parent_Relationship" : "Inner",
+                      "Parallel_Aware" : true,
+                      "Startup_Cost" : 4472.55,
+                      "Total_Cost" : 4472.55,
+                      "Plan_Rows" : 368,
+                      "Plan_Width" : 116,
+                      "children" : [ {
+                        "Node_Type" : "Hash Join",
+                        "Parent_Relationship" : "Outer",
+                        "Parallel_Aware" : false,
+                        "Join_Type" : "Inner",
+                        "Startup_Cost" : 24.5,
+                        "Total_Cost" : 4472.55,
+                        "Plan_Rows" : 368,
+                        "Plan_Width" : 116,
+                        "Inner_Unique" : false,
+                        "Hash_Condition" : "(sf1_customer.c_nationkey = sf1_nation.n_nationkey)",
+                        "children" : [ {
+                          "Node_Type" : "Seq Scan",
+                          "Parent_Relationship" : "Outer",
+                          "Parallel_Aware" : true,
+                          "Relation_Name" : "sf1_customer",
+                          "Alias" : "sf1_customer",
+                          "Startup_Cost" : 0.0,
+                          "Total_Cost" : 4210.0,
+                          "Plan_Rows" : 62500,
+                          "Plan_Width" : 8,
+                          "link" : {
+                            "name" : "Link node 11.1 to 12.1",
+                            "nodeName" : "NODE NAME 12.1",
+                            "direction" : "SYNC"
+                          }
+                        }, {
+                          "Node_Type" : "Hash",
+                          "Parent_Relationship" : "Inner",
+                          "Parallel_Aware" : false,
+                          "Startup_Cost" : 24.48,
+                          "Total_Cost" : 24.48,
+                          "Plan_Rows" : 1,
+                          "Plan_Width" : 108,
+                          "children" : [ {
+                            "Node_Type" : "Hash Join",
+                            "Parent_Relationship" : "Outer",
+                            "Parallel_Aware" : false,
+                            "Join_Type" : "Inner",
+                            "Startup_Cost" : 12.14,
+                            "Total_Cost" : 24.48,
+                            "Plan_Rows" : 1,
+                            "Plan_Width" : 108,
+                            "Inner_Unique" : false,
+                            "Hash_Condition" : "(sf1_nation.n_regionkey = sf1_region.r_regionkey)",
+                            "children" : [ {
+                              "Node_Type" : "Seq Scan",
+                              "Parent_Relationship" : "Outer",
+                              "Parallel_Aware" : false,
+                              "Relation_Name" : "sf1_nation",
+                              "Alias" : "sf1_nation",
+                              "Startup_Cost" : 0.0,
+                              "Total_Cost" : 11.7,
+                              "Plan_Rows" : 170,
+                              "Plan_Width" : 112,
+                              "link" : {
+                                "name" : "Link node 13.1 to 14.1",
+                                "nodeName" : "NODE NAME 14.1",
+                                "direction" : "SYNC"
+                              }
+                            }, {
+                              "Node_Type" : "Hash",
+                              "Parent_Relationship" : "Inner",
+                              "Parallel_Aware" : false,
+                              "Startup_Cost" : 12.12,
+                              "Total_Cost" : 12.12,
+                              "Plan_Rows" : 1,
+                              "Plan_Width" : 4,
+                              "children" : [ {
+                                "Node_Type" : "Seq Scan",
+                                "Parent_Relationship" : "Outer",
+                                "Parallel_Aware" : false,
+                                "Relation_Name" : "sf1_region",
+                                "Alias" : "sf1_region",
+                                "Startup_Cost" : 0.0,
+                                "Total_Cost" : 12.12,
+                                "Plan_Rows" : 1,
+                                "Plan_Width" : 4,
+                                "Filter" : "(r_name = 'ASIA'::bpchar)",
+                                "link" : {
+                                  "name" : "Link node 14.2 to 15.1",
+                                  "nodeName" : "NODE NAME 15.1",
+                                  "direction" : "SYNC"
+                                }
+                              } ],
+                              "link" : {
+                                "name" : "Link node 13.1 to 14.1",
+                                "nodeName" : "NODE NAME 14.1",
+                                "direction" : "SYNC"
+                              },
+                              "nodeName" : "14.2"
+                            } ],
+                            "link" : {
+                              "name" : "Link node 12.2 to 13.1",
+                              "nodeName" : "NODE NAME 13.1",
+                              "direction" : "SYNC"
+                            },
+                            "nodeName" : "13.1"
+                          } ],
+                          "link" : {
+                            "name" : "Link node 11.1 to 12.1",
+                            "nodeName" : "NODE NAME 12.1",
+                            "direction" : "SYNC"
+                          },
+                          "nodeName" : "12.2"
+                        } ],
+                        "link" : {
+                          "name" : "Link node 10.2 to 11.1",
+                          "nodeName" : "NODE NAME 11.1",
+                          "direction" : "SYNC"
+                        },
+                        "nodeName" : "11.1"
+                      } ],
+                      "link" : {
+                        "name" : "Link node 9.1 to 10.1",
+                        "nodeName" : "NODE NAME 10.1",
+                        "direction" : "SYNC"
+                      },
+                      "nodeName" : "10.2"
+                    } ],
+                    "link" : {
+                      "name" : "Link node 8.2 to 9.1",
+                      "nodeName" : "NODE NAME 9.1",
+                      "direction" : "SYNC"
+                    },
+                    "nodeName" : "9.1"
+                  } ],
+                  "link" : {
+                    "name" : "Link node 7.1 to 8.1",
+                    "nodeName" : "NODE NAME 8.1",
+                    "direction" : "SYNC"
+                  },
+                  "nodeName" : "8.2"
+                } ],
+                "link" : {
+                  "name" : "Link node 6.1 to 7.1",
+                  "nodeName" : "NODE NAME 7.1",
+                  "direction" : "SYNC"
+                },
+                "nodeName" : "7.1"
+              }, {
+                "Node_Type" : "Hash",
+                "Parent_Relationship" : "Inner",
+                "Parallel_Aware" : false,
+                "Startup_Cost" : 322.0,
+                "Total_Cost" : 322.0,
+                "Plan_Rows" : 10000,
+                "Plan_Width" : 8,
+                "children" : [ {
+                  "Node_Type" : "Seq Scan",
+                  "Parent_Relationship" : "Outer",
+                  "Parallel_Aware" : false,
+                  "Relation_Name" : "sf1_supplier",
+                  "Alias" : "sf1_supplier",
+                  "Startup_Cost" : 0.0,
+                  "Total_Cost" : 322.0,
+                  "Plan_Rows" : 10000,
+                  "Plan_Width" : 8,
+                  "link" : {
+                    "name" : "Link node 7.2 to 8.1",
+                    "nodeName" : "NODE NAME 8.1",
+                    "direction" : "SYNC"
+                  }
+                } ],
+                "link" : {
+                  "name" : "Link node 6.1 to 7.1",
+                  "nodeName" : "NODE NAME 7.1",
+                  "direction" : "SYNC"
+                },
+                "nodeName" : "7.2"
+              } ],
+              "link" : {
+                "name" : "Link node 5.1 to 6.1",
+                "nodeName" : "NODE NAME 6.1",
+                "direction" : "SYNC"
+              },
+              "nodeName" : "6.1"
+            } ],
+            "link" : {
+              "name" : "Link node 4.1 to 5.1",
+              "nodeName" : "NODE NAME 5.1",
+              "direction" : "SYNC"
+            },
+            "nodeName" : "5.1"
+          } ],
+          "link" : {
+            "name" : "Link node 3.1 to 4.1",
+            "nodeName" : "NODE NAME 4.1",
+            "direction" : "SYNC"
+          },
+          "nodeName" : "4.1"
+        } ],
+        "link" : {
+          "name" : "Link node 2.1 to 3.1",
+          "nodeName" : "NODE NAME 3.1",
+          "direction" : "SYNC"
+        },
+        "nodeName" : "3.1"
+      } ],
+      "link" : {
+        "name" : "Link node 1 to 2.1",
+        "nodeName" : "NODE NAME 2.1",
+        "direction" : "SYNC"
+      },
+      "nodeName" : "2.1"
+    } ],
+    "link" : {
+      "name" : "Link NODE NAME 1",
+      "nodeName" : "NODE NAME 1",
+      "direction" : "SYNC"
+    },
+    "nodeName" : "1"
+  }
+}

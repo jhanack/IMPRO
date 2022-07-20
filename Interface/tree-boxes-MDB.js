@@ -24,7 +24,7 @@
  */
 "use strict";
 
-function treeBoxes(urlService, jsonData)
+function treeBoxesMDB(urlService, jsonData)
 {
 	var urlService_ = '';
 	
@@ -45,8 +45,8 @@ function treeBoxes(urlService, jsonData)
 		width = 800 - margin.right - margin.left,
 		height = 400 - margin.top - margin.bottom;
 	
-	var rectNode = { width : 175, height : 135, textMargin : 5 },
-		tooltip = { width : 150, height : 40, textMargin : 5 };
+	var rectNode = { width : 235, height : 135, textMargin : 5 },
+		tooltip = { width : 200, height : 40, textMargin : 5 };
 	var i = 0,
 		duration = 750,
 		root;
@@ -211,15 +211,21 @@ function treeBoxes(urlService, jsonData)
 							: (rectNode.height - rectNode.textMargin * 2)
 				})
 		.append('xhtml').html(function(d) {
+
+
+
 					return '<div style="width: '
 							+ (rectNode.width  - rectNode.textMargin * 2) + 'px; height: '
 							+ (rectNode.height  - rectNode.textMargin * 2) + 'px;" class="node-text wordwrap">'
-							+ '<b> Node Type: ' + d.Node_Type + '</b><br><br>'
-							+ 'Parallel Aware: ' + d.Parallel_Aware + '<br>'	
-							+ 'Startup Cost: ' + d.Startup_Cost + '<br>'	
-							+ 'Total Cost: ' + d.Total_Cost + '<br>'	
-							+ 'Plan Rows: ' + d.Plan_Rows + '<br>'	
-							+ 'Plan Width: ' + d.Plan_Width + '<br>'	
+
+							+'<b> Node Type: ' + d.Node_Type + '</b><br><br>'	
+							+ 'Table Name: ' + d.table_name + '<br>'
+							+ 'Access Type: ' + d.access_type + '<br>'	
+							+ 'Buffer Type: ' + d.buffer_type + '<br>'	
+							+ 'Buffer Size: ' + d.buffer_size + '<br>'	
+							+ 'Join Type: ' + d.join_type + '<br>'	
+							+ 'Key: ' + d.key + '<br>'	
+							
 							+ '</div>';
 				})
 		.on('mouseover', function(d) {

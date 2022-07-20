@@ -21,7 +21,7 @@
 /*
  * Styles of the components of the tree
  */
- #tree-container {
+#tree-container {
 	position: absolute;
 	left: 0px;
 	width: 100%;
@@ -86,7 +86,7 @@ body {
 }
 
 .node-text {
-	font: 10px sans-serif;
+	font: 14px sans-serif;
 	color: white;
 }
 

@@ -1,0 +1,49 @@
+{
+  "tree" : {
+    "Node_Type" : "Filter",
+    "Parallel_Aware" : false,
+    "Startup_Cost" : 0,
+    "Total_Cost" : 0,
+    "Plan_Rows" : 7413575,
+    "Plan_Width" : 0,
+    "children" : [ {
+      "Node_Type" : "Join",
+      "Parent_Relationship" : "0",
+      "Parallel_Aware" : false,
+      "Startup_Cost" : 0,
+      "Total_Cost" : 0,
+      "Plan_Rows" : 147614,
+      "Plan_Width" : 0,
+      "Sort_Key" : [ "sum(l.l_extendedprice * (1 - l.l_discount)) desc, o.o_orderdate" ],
+      "children" : [ {
+        "Node_Type" : "Join",
+        "Strategy" : "",
+        "Partial_Mode" : "",
+        "Parent_Relationship" : "",
+        "Parallel_Aware" : false,
+        "Startup_Cost" : 0,
+        "Total_Cost" : 0,
+        "Plan_Rows" : 1481253,
+        "Plan_Width" : 0,
+        "Group_Key" : [ "o.o_orderdate < DATE'1995-03-15" ],
+        "children" : [ {
+          "Node_Type" : "Join",
+          "Parent_Relationship" : "",
+          "Parallel_Aware" : false,
+          "Startup_Cost" : 0,
+          "Total_Cost" : 0,
+          "Plan_Rows" : 5784708,
+          "Plan_Width" : 0,
+          "children" : [ {
+                "children" : [ {
+                  "Filter" : "(l_shipdate > '1995-03-15'::date)",
+                  "link" : {
+                   
+                  }
+                }  ]
+
+              } ]
+      } ]
+    } ]
+  }]}
+}

@@ -1,0 +1,249 @@
+{
+  "tree" : {
+    "link" : {
+      "name" : "Link NODE NAME 1",
+      "nodeName" : "NODE NAME 1",
+      "direction" : "SYNC"
+    },
+    "nodeName" : "1",
+    "Node_Type" : "filesort",
+    "children" : [ {
+      "sort_key" : "sf1_supplier.s_acctbal desc, sf1_nation.n_name, sf1_supplier.s_name, sf1_part.p_partkey",
+      "Node_Type" : "Sort",
+      "children" : [ {
+        "table_name" : "sf1_part",
+        "access_type" : "ALL",
+        "rows" : 1,
+        "filtered" : 100,
+        "attached_condition" : "sf1_part.p_size = 15 and sf1_part.p_type like '%BRASS' and sf1_part.p_partkey is not null",
+        "Node_Type" : "temporary_table",
+        "link" : {
+          "name" : "Link node 2.1 to 3.1",
+          "nodeName" : "NODE NAME 3.1",
+          "direction" : "SYNC"
+        }
+      }, {
+        "buffer_type" : "flat",
+        "buffer_size" : "2Kb",
+        "join_type" : "BNL",
+        "attached_condition" : "sf1_supplier.s_suppkey is not null and sf1_supplier.s_nationkey is not null",
+        "children" : [ {
+          "table_name" : "sf1_supplier",
+          "access_type" : "ALL",
+          "rows" : 1,
+          "filtered" : 100,
+          "Node_Type" : "table",
+          "link" : {
+            "name" : "Link node 3.2 to 4.1",
+            "nodeName" : "NODE NAME 4.1",
+            "direction" : "SYNC"
+          }
+        } ],
+        "Node_Type" : "block_nl_join1",
+        "link" : {
+          "name" : "Link node 2.1 to 3.1",
+          "nodeName" : "NODE NAME 3.1",
+          "direction" : "SYNC"
+        },
+        "nodeName" : "3.2"
+      }, {
+        "buffer_type" : "incremental",
+        "buffer_size" : "8Kb",
+        "join_type" : "BNLH",
+        "attached_condition" : "sf1_partsupp.ps_partkey = sf1_part.p_partkey and sf1_partsupp.ps_suppkey = sf1_supplier.s_suppkey and sf1_partsupp.ps_supplycost = (subquery#2)",
+        "children" : [ {
+          "table_name" : "sf1_partsupp",
+          "access_type" : "hash_ALL",
+          "key" : "#hash#$hj",
+          "key_length" : "16",
+          "used_key_parts" : [ "ps_partkey", "ps_supplycost", "ps_suppkey" ],
+          "ref" : [ "impro_database.sf1_part.p_partkey", "func", "impro_database.sf1_supplier.s_suppkey" ],
+          "rows" : 1,
+          "filtered" : 100,
+          "Node_Type" : "table",
+          "link" : {
+            "name" : "Link node 3.3 to 4.1",
+            "nodeName" : "NODE NAME 4.1",
+            "direction" : "SYNC"
+          }
+        } ],
+        "Node_Type" : "block_nl_join2",
+        "link" : {
+          "name" : "Link node 2.1 to 3.1",
+          "nodeName" : "NODE NAME 3.1",
+          "direction" : "SYNC"
+        },
+        "nodeName" : "3.3"
+      }, {
+        "buffer_type" : "incremental",
+        "buffer_size" : "489",
+        "join_type" : "BNLH",
+        "attached_condition" : "sf1_nation.n_nationkey = sf1_supplier.s_nationkey and sf1_nation.n_regionkey is not null",
+        "children" : [ {
+          "table_name" : "sf1_nation",
+          "access_type" : "hash_ALL",
+          "key" : "#hash#$hj",
+          "key_length" : "5",
+          "used_key_parts" : [ "n_nationkey" ],
+          "ref" : [ "impro_database.sf1_supplier.s_nationkey" ],
+          "rows" : 1,
+          "filtered" : 100,
+          "Node_Type" : "table",
+          "link" : {
+            "name" : "Link node 3.4 to 4.1",
+            "nodeName" : "NODE NAME 4.1",
+            "direction" : "SYNC"
+          }
+        } ],
+        "Node_Type" : "block_nl_join3",
+        "link" : {
+          "name" : "Link node 2.1 to 3.1",
+          "nodeName" : "NODE NAME 3.1",
+          "direction" : "SYNC"
+        },
+        "nodeName" : "3.4"
+      }, {
+        "buffer_type" : "incremental",
+        "buffer_size" : "1Kb",
+        "join_type" : "BNLH",
+        "attached_condition" : "sf1_region.r_regionkey = sf1_nation.n_regionkey",
+        "children" : [ {
+          "table_name" : "sf1_region",
+          "access_type" : "hash_ALL",
+          "key" : "#hash#$hj",
+          "key_length" : "5",
+          "used_key_parts" : [ "r_regionkey" ],
+          "ref" : [ "impro_database.sf1_nation.n_regionkey" ],
+          "rows" : 1,
+          "filtered" : 100,
+          "attached_condition" : "sf1_region.r_name = 'EUROPE'",
+          "Node_Type" : "table",
+          "link" : {
+            "name" : "Link node 3.5 to 4.1",
+            "nodeName" : "NODE NAME 4.1",
+            "direction" : "SYNC"
+          }
+        } ],
+        "Node_Type" : "block_nl_join4",
+        "link" : {
+          "name" : "Link node 2.1 to 3.1",
+          "nodeName" : "NODE NAME 3.1",
+          "direction" : "SYNC"
+        },
+        "nodeName" : "3.5"
+      }, {
+        "Node_Type" : "subqueries",
+        "children" : [ {
+          "table_name" : "sf1_partsupp",
+          "access_type" : "ALL",
+          "rows" : 1,
+          "filtered" : 100,
+          "attached_condition" : "sf1_part.p_partkey = sf1_partsupp.ps_partkey and sf1_partsupp.ps_suppkey is not null",
+          "Node_Type" : "table",
+          "link" : {
+            "name" : "Link node 3.6 to 4.1",
+            "nodeName" : "NODE NAME 4.1",
+            "direction" : "SYNC"
+          }
+        }, {
+          "buffer_type" : "flat",
+          "buffer_size" : "445",
+          "join_type" : "BNLH",
+          "attached_condition" : "sf1_supplier.s_suppkey = sf1_partsupp.ps_suppkey and sf1_supplier.s_nationkey is not null",
+          "children" : [ {
+            "table_name" : "sf1_supplier",
+            "access_type" : "hash_ALL",
+            "key" : "#hash#$hj",
+            "key_length" : "5",
+            "used_key_parts" : [ "s_suppkey" ],
+            "ref" : [ "impro_database.sf1_partsupp.ps_suppkey" ],
+            "rows" : 1,
+            "filtered" : 100,
+            "Node_Type" : "table",
+            "link" : {
+              "name" : "Link node 4.2 to 5.1",
+              "nodeName" : "NODE NAME 5.1",
+              "direction" : "SYNC"
+            }
+          } ],
+          "Node_Type" : "block_nl_join5",
+          "link" : {
+            "name" : "Link node 3.6 to 4.1",
+            "nodeName" : "NODE NAME 4.1",
+            "direction" : "SYNC"
+          },
+          "nodeName" : "4.2"
+        }, {
+          "buffer_type" : "incremental",
+          "buffer_size" : "424",
+          "join_type" : "BNLH",
+          "attached_condition" : "sf1_nation.n_nationkey = sf1_supplier.s_nationkey and sf1_nation.n_regionkey is not null",
+          "children" : [ {
+            "table_name" : "sf1_nation",
+            "access_type" : "hash_ALL",
+            "key" : "#hash#$hj",
+            "key_length" : "5",
+            "used_key_parts" : [ "n_nationkey" ],
+            "ref" : [ "impro_database.sf1_supplier.s_nationkey" ],
+            "rows" : 1,
+            "filtered" : 100,
+            "Node_Type" : "table",
+            "link" : {
+              "name" : "Link node 4.3 to 5.1",
+              "nodeName" : "NODE NAME 5.1",
+              "direction" : "SYNC"
+            }
+          } ],
+          "Node_Type" : "block_nl_join6",
+          "link" : {
+            "name" : "Link node 3.6 to 4.1",
+            "nodeName" : "NODE NAME 4.1",
+            "direction" : "SYNC"
+          },
+          "nodeName" : "4.3"
+        }, {
+          "buffer_type" : "incremental",
+          "buffer_size" : "424",
+          "join_type" : "BNLH",
+          "attached_condition" : "sf1_region.r_regionkey = sf1_nation.n_regionkey",
+          "children" : [ {
+            "table_name" : "sf1_region",
+            "access_type" : "hash_ALL",
+            "key" : "#hash#$hj",
+            "key_length" : "5",
+            "used_key_parts" : [ "r_regionkey" ],
+            "ref" : [ "impro_database.sf1_nation.n_regionkey" ],
+            "rows" : 1,
+            "filtered" : 100,
+            "attached_condition" : "sf1_region.r_name = 'EUROPE'",
+            "Node_Type" : "table",
+            "link" : {
+              "name" : "Link node 4.4 to 5.1",
+              "nodeName" : "NODE NAME 5.1",
+              "direction" : "SYNC"
+            }
+          } ],
+          "Node_Type" : "block_nl_join7",
+          "link" : {
+            "name" : "Link node 3.6 to 4.1",
+            "nodeName" : "NODE NAME 4.1",
+            "direction" : "SYNC"
+          },
+          "nodeName" : "4.4"
+        } ],
+        "link" : {
+          "name" : "Link node 2.1 to 3.1",
+          "nodeName" : "NODE NAME 3.1",
+          "direction" : "SYNC"
+        },
+        "nodeName" : "3.6"
+      } ],
+      "link" : {
+        "name" : "Link node 1 to 2.1",
+        "nodeName" : "NODE NAME 2.1",
+        "direction" : "SYNC"
+      },
+      "nodeName" : "2.1"
+    } ]
+  }
+}
